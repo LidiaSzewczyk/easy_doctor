@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+
+<form action="/patient_visit/" method="post">
+    <div class=" col-md-11  buttons_list">
+    <button type="reset" class="btn btn-outline-pink" >Nowy formularz / Wyczyść </button>
+        <button type="submit"  class="btn btn-outline-turquoise">Zapisz</button>
+    </div>
+    <br>
+    {% csrf_token %}
+
+    <label class="my-form-label" for="patient_name">Pacjent: </label>
+    <br>
+    <textarea class="my-form-control" id="patient_name" type="text" name="patient_form" rows="1" cols="55"></textarea>
+    <br>
+    <label class="my-form-label" for="diagn">Rozpoznanie: </label>
+    <br>
+    <textarea class="my-form-control" id="diagn" type="text" name="patient_form" rows="2" cols="55"></textarea>
+    <br>
+    <label class="my-form-label" for="wywiad">Wywiad: </label>
+    <br>
+    <textarea  class="my-form-control" id="wywiad" type="text" name="patient_form" rows="10" cols="55"></textarea>
+    <br>
+    <label class="my-form-label" for="badanie">Badanie: </label>
+    <br>
+    <textarea  class="my-form-control" id="badanie" type="text" name="patient_form" rows="10" cols="55"></textarea>
+    <br>
+    <label class="my-form-label" for="zalecenia">Zalecenia: </label>
+    <br>
+    <textarea  class="my-form-control" id="zalecenia" type="text" name="patient_form" rows="10" cols="55"></textarea>
+    <br>
+    <button type="submit"  class="btn btn-outline-turquoise">Zapisz</button>
+</form>
+{% endblock sidebar %}

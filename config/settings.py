@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
 
     'users.apps.UsersConfig',
+    'visit.apps.VisitConfig',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +132,7 @@ STATICFILES_DIRS = [str(BASE_DIR.joinpath('static'))]
 STATICFILES_FINDERS = ["django.contrib.staticfiles.finders.FileSystemFinder",
                        "django.contrib.staticfiles.finders.AppDirectoriesFinder", ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, '../media')
 MEDIA_URL = '/media/'
 
 # Default primary key field type

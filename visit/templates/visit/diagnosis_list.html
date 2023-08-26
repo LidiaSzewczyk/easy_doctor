@@ -1,0 +1,35 @@
+{% extends 'visit/base_visit.html' %}
+{% block content %}
+
+
+<h6>Opracowane rozpoznania</h6>
+<table class="table  table-hover">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+                <th scope="col">ICD-10</th>
+        <th scope="col">Rozpoznanie</th>
+    </tr>
+    </thead>
+
+    {% for diagn in diagnosis %}
+    <a href="">
+        <tbody>
+
+        <tr>
+            <th scope="row">{{diagn.id}}</th>
+            <td> {{diagn.number}}</td>
+
+            <td> {{diagn.name}}</td>
+
+
+        </tr>
+        </tbody>
+    </a>
+
+    {% empty %}
+    {% endfor %}
+
+
+</table>
+{% endblock content %}
