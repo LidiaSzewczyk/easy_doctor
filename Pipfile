@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "==4.2.4"
 django-environ = "==0.10.0"
+django-debug-toolbar = "==4.2.0"
 
 [dev-packages]
 
