@@ -1,0 +1,1 @@
+stworzyć plik envs/.env na bazie .env-default i uzupełnić
