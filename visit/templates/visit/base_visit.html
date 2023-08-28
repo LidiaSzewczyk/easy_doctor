@@ -21,6 +21,20 @@
         document.getElementById(vistpart).value = document.getElementById(vistpart).value + text + '\n';
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
     }
+
+
+    function addFilledText(text, form_id, vistpart) {
+        vistpart = vistpart.toLowerCase()
+        document.getElementById(vistpart).value = document.getElementById(vistpart).value + text + ' ' + document.getElementById(form_id).value + '\n';
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+    }
+
+
+    function addRadioText(patient_text, choice, vistpart) {
+        vistpart = vistpart.toLowerCase();
+        document.getElementById(vistpart).value = document.getElementById(vistpart).value + patient_text.concat(' ', choice) + '\n'
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+    }
 </script>
 
 {%  endblock script %}

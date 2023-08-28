@@ -4,12 +4,13 @@
 <br>
 <!--    wyświetlanie i dodawanie rozpoznania-->
 <div class="row">
-    <div class="col-md-11">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
         <h3>{{diagnosis.number}} - {{diagnosis.name}} </h3>
-        <h5> {% if diagnosis.info %}
+        <h6> {% if diagnosis.info %}
             {{diagnosis.info}}
             {% else %}
-            {% endif %} </h5>
+            {% endif %} </h6>
     </div>
 
     <div class="col-md-1">
@@ -25,8 +26,9 @@
 
 
 <div class="row">
-<!--        wyswietla panel po lewej str z czesciami-->
-    <div class="col-4">
+    <div class="col-md-1"></div>
+    <!--        wyswietla panel po lewej str z czesciami-->
+    <div class="col-2">
         <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end">
             <nav class="nav nav-pills flex-column">
                 {% for part, part_content in contents.items %}
@@ -39,13 +41,12 @@
         </nav>
     </div>
 
-<!--    wyświetla panel środkowy z tekstami-->
-    <div class="col-8">
+    <!--    wyświetla panel środkowy z tekstami-->
+    <div class="col-9">
         <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true"
              class="scrollspy-example-2" tabindex="0">
 
             {% for part, part_content in contents.items %}
-
 
             <div id="{{ part }}">
                 <h4 class="turquoise">{{part}} </h4>
@@ -53,29 +54,97 @@
                 <table class="table table-striped table-hover">
                     {% for text_obj in part_content%}
                     <tbody>
+                    <!--                    dodawanie samego tekstu-->
+                    {% if text_obj.4.name == "text" %}
                     <td>
                         <p> {{ text_obj.0 }} </p>
                     </td>
-
                     <td>
                         <form>
                             <!--                            wyświetla przycisk dodaj-->
                             {% csrf_token %}
-                            <button type="button" class="btn btn-outline-lightturquoise btn-sm" id="{{text_obj.3}}button"
+                            <button type="button" class="btn btn-outline-lightturquoise btn-sm"
+                                    id="{{text_obj.3}}button"
                                     onclick="addText( '{{text_obj.1}}', '{{part}}')">
                                 dodaj
                             </button>
-
                             <br>
-
                             <!--                           wyświetla przycisk do usuwanie tekstu-->
                             <button type="button" class="btn btn-outline-lightpink btn-sm"
                                     id="{{text_obj.3}}deletebutton"
-                                    >
+                            >
                                 usuń&nbsp;
                             </button>
                         </form>
                     </td>
+                    <!--dodawanie tekstu z wypełnionym formularzem-->
+                    {% elif text_obj.4.name == "fill_text" %}
+                    <td>
+                        <form action="">
+                            {% csrf_token %}
+                            <div class="form-group col-md-12">
+                                <label class="custom-control-label" for="{{text_obj.3}}">{{ text_obj.0 }}</label>
+                                <input type="text" id="{{text_obj.3}}" name="enterclick"
+                                       class="form-control mx-sm-3">
+                            </div>
+                        </form>
+                    <td>
+                        <form>
+                            <!--                            wyświetla przycisk dodaj-->
+                            {% csrf_token %}
+                            <button type="button" class="btn btn-outline-lightturquoise btn-sm"
+                                    id="{{text_obj.3}}button"
+                                    onclick="addFilledText( '{{text_obj.1}}', '{{text_obj.3}}', '{{part}}')">
+                                dodaj
+                            </button>
+                            <br>
+                            <!--                           wyświetla przycisk do usuwanie tekstu-->
+                            <button type="button" class="btn btn-outline-lightpink btn-sm"
+                                    id="{{text_obj.3}}deletebutton"
+                            >
+                                usuń&nbsp;
+                            </button>
+                        </form>
+                    </td>
+                    </td>
+                    <!--dodawanie tekstu z radio wyborem-->
+                    {% elif text_obj.4.name == "radio" %}
+                    <td>
+                        <p> {{ text_obj.0 }} </p>
+                        {% if text_obj.2 %}
+                        <!--                        wyswietla opcje wyboru-->
+                        {% for choice in text_obj.2 %}
+                        <div class="form-check form-check-inline">
+                            <input type="radio" id="{{text_obj.3}}{{choice.2}}"
+                                   name="{{text_obj.3}}"
+                                   class="form-check-input"
+                                   onclick='addRadioText( "{{text_obj.1}}", "{{choice.1}}", "{{part}}")'>
+                            <label class="form-check-label" for="{{text_obj.3}}{{choice.2}}">{{ choice.0 }}
+                            </label>
+                        </div>
+
+
+                        {% empty %}
+                        {% endfor %}
+                        {% else %}
+                        {% endif %}
+                    <td>
+                        <form>
+                            {% csrf_token %}
+                            <br>
+                            <!--                           wyświetla przycisk do usuwanie tekstu-->
+                            <button type="button" class="btn btn-outline-lightpink btn-sm"
+                                    id="{{text_obj.3}}deletebutton"
+                            >
+                                usuń&nbsp;
+                            </button>
+                        </form>
+                    </td>
+                    </td>
+                    {% else %}
+
+                    {% endif %}
+
 
                     </tbody>
 
@@ -84,7 +153,6 @@
                 </table>
                 </p>
             </div>
-
 
 
             {% empty %}
