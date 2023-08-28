@@ -1,11 +1,29 @@
 {% extends "base.html" %}
 
+{% block script %}
+<script>
+
+    function addDiagnosis(text) {
+        document.getElementById('diagn').value = document.getElementById('diagn').value + text + '\n';
+        sessionStorage.setItem('diagn', document.getElementById('diagn').value);
+        radioText = false
+        return radioText
+    }
+
+    function removeDiagnosis(text) {
+        console.log(text)
+        document.getElementById('diagn').value = document.getElementById('diagn').value.replace(text + '\n', '')
+        sessionStorage.setItem('diagn', document.getElementById('diagn').value);
+    }
+</script>
+
+{%  endblock script %}
 {% block sidebar %}
 
 <form action="/patient_visit/" method="post">
     <div class=" col-md-11  buttons_list">
-    <button type="reset" class="btn btn-outline-pink" >Nowy formularz / Wyczyść </button>
-        <button type="submit"  class="btn btn-outline-turquoise">Zapisz</button>
+        <button type="reset" class="btn btn-outline-pink">Nowy formularz / Wyczyść</button>
+        <button type="submit" class="btn btn-outline-turquoise">Zapisz</button>
     </div>
     <br>
     {% csrf_token %}
@@ -20,16 +38,16 @@
     <br>
     <label class="my-form-label" for="wywiad">Wywiad: </label>
     <br>
-    <textarea  class="my-form-control" id="wywiad" type="text" name="patient_form" rows="10" cols="55"></textarea>
+    <textarea class="my-form-control" id="wywiad" type="text" name="patient_form" rows="10" cols="55"></textarea>
     <br>
     <label class="my-form-label" for="badanie">Badanie: </label>
     <br>
-    <textarea  class="my-form-control" id="badanie" type="text" name="patient_form" rows="10" cols="55"></textarea>
+    <textarea class="my-form-control" id="badanie" type="text" name="patient_form" rows="10" cols="55"></textarea>
     <br>
     <label class="my-form-label" for="zalecenia">Zalecenia: </label>
     <br>
-    <textarea  class="my-form-control" id="zalecenia" type="text" name="patient_form" rows="10" cols="55"></textarea>
+    <textarea class="my-form-control" id="zalecenia" type="text" name="patient_form" rows="10" cols="55"></textarea>
     <br>
-    <button type="submit"  class="btn btn-outline-turquoise">Zapisz</button>
+    <button type="submit" class="btn btn-outline-turquoise">Zapisz</button>
 </form>
 {% endblock sidebar %}

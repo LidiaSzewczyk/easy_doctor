@@ -20,8 +20,22 @@
 }
 
 
-a {
+a.turquoise{
     text-decoration: none;
+}
+
+a.turquoise {
+    color: #047187;
+    text-decoration: none
+}
+
+a.turquoise:hover {
+    --bs-link-color-rgb: #035666
+}
+
+a.turquoise:not([href]):not([class]), a.turquoise:not([href]):not([class]):hover {
+    color: inherit;
+    text-decoration: none
 }
 
 textarea.my-form-control {

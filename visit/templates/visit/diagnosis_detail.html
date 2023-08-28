@@ -1,0 +1,25 @@
+{% extends 'visit/base_visit.html' %}
+
+{% block content %}
+<br>
+<div class="row">
+    <div class="col-md-11">
+        <h3>{{diagnosis.number}} - {{diagnosis.name}} </h3>
+        <h5> {% if diagnosis.info %}
+            {{diagnosis.info}}
+            {% else %}
+
+            {% endif %} </h5>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+                onclick="addDiagnosis( '{{diagnosis.number}} - {{diagnosis.name}} ' )">dodaj
+        </button>
+        <button type="button" class="btn btn-outline-secondary btn-sm"
+                onclick="removeDiagnosis( '{{diagnosis.number}} - {{diagnosis.name}} '  )">
+            usuń&nbsp;
+        </button>
+    </div>
+
+</div>
+{% endblock content %}

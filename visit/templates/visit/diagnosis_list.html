@@ -7,25 +7,23 @@
     <thead>
     <tr>
         <th scope="col">#</th>
-                <th scope="col">ICD-10</th>
+        <th scope="col">ICD-10</th>
         <th scope="col">Rozpoznanie</th>
     </tr>
     </thead>
 
     {% for diagn in diagnosis %}
-    <a href="">
-        <tbody>
 
-        <tr>
-            <th scope="row">{{diagn.id}}</th>
-            <td> {{diagn.number}}</td>
+    <tbody>
 
-            <td> {{diagn.name}}</td>
+    <tr>
+        <th scope="row">{{diagn.id}}</th>
+        <td><a class="turquoise" href="{{diagn.get_absolute_url}}"> {{diagn.number}}</a></td>
+        <td><a class="turquoise" href="{{diagn.get_absolute_url}}"> {{diagn.name}} </a></td>
 
+    </tr>
+    </tbody>
 
-        </tr>
-        </tbody>
-    </a>
 
     {% empty %}
     {% endfor %}
