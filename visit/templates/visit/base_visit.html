@@ -29,6 +29,18 @@
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
     }
 
+    function addFilledChoices(text, form_ids, vistpart) {
+        console.log(form_ids)
+        vistpart = vistpart.toLowerCase()
+        var temptext = text
+        for (var form_id of form_ids) {
+            if (document.getElementById(form_id[1]).value) {
+                temptext = temptext +' '+ form_id[0] + ' ' + document.getElementById(form_id[1]).value + '; '
+            }
+        }
+        document.getElementById(vistpart).value = document.getElementById(vistpart).value + temptext + '\n';
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+    }
 
     function addRadioText(patient_text, choice, vistpart) {
         vistpart = vistpart.toLowerCase();
@@ -38,6 +50,24 @@
 </script>
 
 {%  endblock script %}
+{% block scriptend %}
+<script>
+
+    document.getElementsByName("enterclick").forEach(enterClick)
+
+    function enterClick(item, index, arr) {
+        item.addEventListener('keypress', function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                console.log(item.id)
+                var enter_id = item.id.split('-')[0] + "button"
+                document.getElementById(enter_id).click()
+            }
+        })
+    }
+
+</script>
+{% endblock scriptend %}
 {% block sidebar %}
 
 <form action="/patient_visit/" method="post">

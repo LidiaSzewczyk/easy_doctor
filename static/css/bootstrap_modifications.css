@@ -174,3 +174,7 @@ button.btn-outline-lightturquoise {
 h4.turquoise {
     color: #5795A1;
 }
+
+.end-line {
+    justify-content: flex-end;
+}

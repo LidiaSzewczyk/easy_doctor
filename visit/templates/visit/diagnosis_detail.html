@@ -63,6 +63,7 @@
                         <form>
                             <!--                            wyświetla przycisk dodaj-->
                             {% csrf_token %}
+
                             <button type="button" class="btn btn-outline-lightturquoise btn-sm"
                                     id="{{text_obj.3}}button"
                                     onclick="addText( '{{text_obj.1}}', '{{part}}')">
@@ -75,89 +76,130 @@
                             >
                                 usuń&nbsp;
                             </button>
-                        </form>
-                    </td>
-                    <!--dodawanie tekstu z wypełnionym formularzem-->
-                    {% elif text_obj.4.name == "fill_text" %}
-                    <td>
-                        <form action="">
-                            {% csrf_token %}
-                            <div class="form-group col-md-12">
-                                <label class="custom-control-label" for="{{text_obj.3}}">{{ text_obj.0 }}</label>
-                                <input type="text" id="{{text_obj.3}}" name="enterclick"
-                                       class="form-control mx-sm-3">
-                            </div>
-                        </form>
-                    <td>
-                        <form>
-                            <!--                            wyświetla przycisk dodaj-->
-                            {% csrf_token %}
-                            <button type="button" class="btn btn-outline-lightturquoise btn-sm"
-                                    id="{{text_obj.3}}button"
-                                    onclick="addFilledText( '{{text_obj.1}}', '{{text_obj.3}}', '{{part}}')">
-                                dodaj
-                            </button>
-                            <br>
-                            <!--                           wyświetla przycisk do usuwanie tekstu-->
-                            <button type="button" class="btn btn-outline-lightpink btn-sm"
-                                    id="{{text_obj.3}}deletebutton"
-                            >
-                                usuń&nbsp;
-                            </button>
-                        </form>
-                    </td>
-                    </td>
-                    <!--dodawanie tekstu z radio wyborem-->
-                    {% elif text_obj.4.name == "radio" %}
-                    <td>
-                        <p> {{ text_obj.0 }} </p>
-                        {% if text_obj.2 %}
-                        <!--                        wyswietla opcje wyboru-->
-                        {% for choice in text_obj.2 %}
-                        <div class="form-check form-check-inline">
-                            <input type="radio" id="{{text_obj.3}}{{choice.2}}"
-                                   name="{{text_obj.3}}"
-                                   class="form-check-input"
-                                   onclick='addRadioText( "{{text_obj.1}}", "{{choice.1}}", "{{part}}")'>
-                            <label class="form-check-label" for="{{text_obj.3}}{{choice.2}}">{{ choice.0 }}
-                            </label>
-                        </div>
-
-
-                        {% empty %}
-                        {% endfor %}
-                        {% else %}
-                        {% endif %}
-                    <td>
-                        <form>
-                            {% csrf_token %}
-                            <br>
-                            <!--                           wyświetla przycisk do usuwanie tekstu-->
-                            <button type="button" class="btn btn-outline-lightpink btn-sm"
-                                    id="{{text_obj.3}}deletebutton"
-                            >
-                                usuń&nbsp;
-                            </button>
-                        </form>
-                    </td>
-                    </td>
-                    {% else %}
-
-                    {% endif %}
-
-
-                    </tbody>
-
-                    {% empty %}
-                    {% endfor %}
-                </table>
-                </p>
             </div>
+            </form>
+            </td>
+            <!--dodawanie tekstu z wypełnionym formularzem-->
+            {% elif text_obj.4.name == "fill_text" %}
+            <td>
+                <form action="">
+                    {% csrf_token %}
+                    <!--                            <div class="form-group col-md-12 one-line">-->
+                    <div class="input-group mb-3">
+                        <!--  <span class="input-group-text">{{ text_obj.0 }}</span>-->
+                        <label class="custom-control-label" for="{{text_obj.3}}">{{ text_obj.0 }}</label>
+                        <input type="text" id="{{text_obj.3}}" name="enterclick"
+                               class="form-control mx-sm-3">
+                </form>
+            <td>
+                <form>
+                    <!--                            wyświetla przycisk dodaj-->
+                    {% csrf_token %}
+                    <button type="button" class="btn btn-outline-lightturquoise btn-sm"
+                            id="{{text_obj.3}}button"
+                            onclick="addFilledText( '{{text_obj.1}}', '{{text_obj.3}}', '{{part}}')">
+                        dodaj
+                    </button>
+                    <br>
+                    <!--                           wyświetla przycisk do usuwanie tekstu-->
+                    <button type="button" class="btn btn-outline-lightpink btn-sm"
+                            id="{{text_obj.3}}deletebutton"
+                    >
+                        usuń&nbsp;
+                    </button>
+                </form>
+            </td>
+            </td>
+            <!--dodawanie tekstu z radio wyborem-->
+            {% elif text_obj.4.name == "radio" %}
+            <td>
+                <p> {{ text_obj.0 }} </p>
+                {% if text_obj.2 %}
+                <!--                        wyswietla opcje wyboru-->
+                {% for choice in text_obj.2 %}
+                <div class="form-check form-check-inline">
+                    <input type="radio" id="{{text_obj.3}}-{{choice.2}}"
+                           name="{{text_obj.3}}"
+                           class="form-check-input"
+                           onclick='addRadioText( "{{text_obj.1}}", "{{choice.1}}", "{{part}}")'>
+                    <label class="form-check-label" for="{{text_obj.3}}-{{choice.2}}">{{ choice.0 }}
+                    </label>
+                </div>
 
+
+                {% empty %}
+                {% endfor %}
+                {% else %}
+                {% endif %}
+            <td>
+                <form>
+                    {% csrf_token %}
+                    <br>
+                    <!--                           wyświetla przycisk do usuwanie tekstu-->
+                    <button type="button" class="btn btn-outline-lightpink btn-sm"
+                            id="{{text_obj.3}}deletebutton"
+                    >
+                        usuń&nbsp;
+                    </button>
+                </form>
+            </td>
+            </td>
+            {% elif text_obj.4.name == "fill_text_choices" %}
+            <td>
+                <p> {{ text_obj.0 }} </p>
+                {% if text_obj.2 %}
+                <!--                        wyswietla opcje wyboru-->
+                {% for choice in text_obj.2 %}
+
+                <form action="">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <label class="custom-control-label" for="{{text_obj.3}}-{{choice.2}}">{{ choice.0 }}</label>
+                        <input type="text" id="{{text_obj.3}}-{{choice.2}}" name="enterclick"
+                               class="form-control mx-sm-3"></div>
+                </form>
+
+                {% empty %}
+                {% endfor %}
+                {% else %}
+                {% endif %}
+            <td>
+                <form>
+                    {% csrf_token %}
+                    <!--                            wyświetla przycisk dodaj-->
+                    <button type="button" class="btn btn-outline-lightturquoise btn-sm"
+                            id="{{text_obj.3}}button"
+                            onclick="addFilledChoices( '{{text_obj.1}}', [{% for choice in text_obj.2 %} ['{{choice.1}}','{{text_obj.3}}-{{choice.2}}'], {% endfor %}], '{{part}}')">
+                        dodaj
+                    </button>
+                    <br>
+                    <br>
+                    <!--                           wyświetla przycisk do usuwanie tekstu-->
+                    <button type="button" class="btn btn-outline-lightpink btn-sm"
+                            id="{{text_obj.3}}deletebutton"
+                    >
+                        usuń&nbsp;
+                    </button>
+                </form>
+            </td>
+            </td>
+            {% else %}
+
+            {% endif %}
+
+
+            </tbody>
 
             {% empty %}
             {% endfor %}
+            </table>
+            </p>
         </div>
+
+
+        {% empty %}
+        {% endfor %}
     </div>
+</div>
 </div>
 {% endblock content %}
