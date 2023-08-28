@@ -25,7 +25,7 @@
 
     function addFilledText(text, form_id, vistpart) {
         vistpart = vistpart.toLowerCase()
-        document.getElementById(vistpart).value = document.getElementById(vistpart).value + text + ' ' + document.getElementById(form_id).value + '\n';
+        document.getElementById(vistpart).value = document.getElementById(vistpart).value + text + ' ' + document.getElementById(form_id).value + '.\n';
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
     }
 
@@ -35,7 +35,7 @@
         var temptext = text
         for (var form_id of form_ids) {
             if (document.getElementById(form_id[1]).value) {
-                temptext = temptext +' '+ form_id[0] + ' ' + document.getElementById(form_id[1]).value + '; '
+                temptext = temptext + ' ' + form_id[0] + ' ' + document.getElementById(form_id[1]).value + '; '
             }
         }
         document.getElementById(vistpart).value = document.getElementById(vistpart).value + temptext + '\n';
@@ -45,6 +45,37 @@
     function addRadioText(patient_text, choice, vistpart) {
         vistpart = vistpart.toLowerCase();
         document.getElementById(vistpart).value = document.getElementById(vistpart).value + patient_text.concat(' ', choice) + '\n'
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+    }
+
+    function addCheckedChoices(text, form_ids, vistpart) {
+
+        vistpart = vistpart.toLowerCase()
+        var temptext = text
+        for (var form_id of form_ids) {
+
+            if (document.getElementById(form_id[1]).checked) {
+                temptext = temptext + ' ' + form_id[0] + ', '
+            }
+        }
+        document.getElementById(vistpart).value = document.getElementById(vistpart).value + temptext + '\n';
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+    }
+
+
+    function addCheckedChoicesAndText(text, form_ids, text_id, vistpart) {
+        console.log(form_ids)
+        console.log(text_id)
+        vistpart = vistpart.toLowerCase()
+        var temptext = text
+        for (var form_id of form_ids) {
+
+            if (document.getElementById(form_id[1]).checked) {
+                temptext = temptext + ' ' + form_id[0] + ', '
+            }
+        }
+        temptext = temptext +' ' +  document.getElementById(text_id).value
+        document.getElementById(vistpart).value = document.getElementById(vistpart).value + temptext + '\n';
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
     }
 </script>

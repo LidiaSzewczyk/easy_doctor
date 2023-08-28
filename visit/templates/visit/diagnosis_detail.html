@@ -125,8 +125,6 @@
                     <label class="form-check-label" for="{{text_obj.3}}-{{choice.2}}">{{ choice.0 }}
                     </label>
                 </div>
-
-
                 {% empty %}
                 {% endfor %}
                 {% else %}
@@ -144,6 +142,7 @@
                 </form>
             </td>
             </td>
+<!--dodawanie tekstu z kilku formularzy -->
             {% elif text_obj.4.name == "fill_text_choices" %}
             <td>
                 <p> {{ text_obj.0 }} </p>
@@ -183,6 +182,117 @@
                 </form>
             </td>
             </td>
+<!--            dodawanie tekstu z każdego checkbox osobno-->
+            {% elif text_obj.4.name == "checkbox" %}
+            <td>
+                <p> {{ text_obj.0 }} </p>
+                {% if text_obj.2 %}
+                <!--                        wyswietla opcje wyboru-->
+                {% for choice in text_obj.2 %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="{{text_obj.3}}-{{choice.2}}"
+                           onclick="addText('{{choice.1}}', '{{part}}')">
+                    <label class="form-check-label" for="{{text_obj.3}}-{{choice.2}}">
+                        {{ choice.0 }}
+                    </label>
+                </div>
+                {% empty %}
+                {% endfor %}
+                {% else %}
+                {% endif %}
+            <td>
+                <form>
+                    {% csrf_token %}
+                    <br>
+                    <!--                           wyświetla przycisk do usuwanie tekstu-->
+                    <button type="button" class="btn btn-outline-lightpink btn-sm"
+                            id="{{text_obj.3}}deletebutton"
+                    >
+                        usuń&nbsp;
+                    </button>
+                </form>
+            </td>
+            </td>
+<!--            dodawanie tekstu ze wszystkich zaznaczonych checkboxów razem-->
+            {% elif text_obj.4.name == "checkbox_combined" %}
+            <td>
+                <p> {{ text_obj.0 }} </p>
+                {% if text_obj.2 %}
+                <!--                        wyswietla opcje wyboru-->
+                {% for choice in text_obj.2 %}
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="" id="{{text_obj.3}}-{{choice.2}}">
+                    <label class="form-check-label" for="{{text_obj.3}}-{{choice.2}}">
+                        {{ choice.0 }}
+                    </label>
+                </div>
+                {% empty %}
+                {% endfor %}
+                {% else %}
+                {% endif %}
+            <td>
+                <form>
+                    {% csrf_token %}
+                    <!--                            wyświetla przycisk dodaj-->
+                    <button type="button" class="btn btn-outline-lightturquoise btn-sm"
+                            id="{{text_obj.3}}button"
+                            onclick="addCheckedChoices( '{{text_obj.1}}', [{% for choice in text_obj.2 %} ['{{choice.1}}','{{text_obj.3}}-{{choice.2}}'], {% endfor %}], '{{part}}')">
+                        dodaj
+                    </button>
+                    <br>
+                    <!--                           wyświetla przycisk do usuwanie tekstu-->
+                    <button type="button" class="btn btn-outline-lightpink btn-sm"
+                            id="{{text_obj.3}}deletebutton"
+                    >
+                        usuń&nbsp;
+                    </button>
+                </form>
+            </td>
+            </td>
+<!--            dodawanie tekstu ze wszystkich zaznaczonych checkboxów i wypełnionego tekstem formularza razem-->
+            {% elif text_obj.4.name == "checkbox_fill_text" %}
+            <td>
+                <p> {{ text_obj.0 }} </p>
+                {% if text_obj.2 %}
+                <!--                        wyswietla opcje wyboru-->
+                {% for choice in text_obj.2 %}
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="" id="{{text_obj.3}}-{{choice.2}}">
+                    <label class="form-check-label" for="{{text_obj.3}}-{{choice.2}}">
+                        {{ choice.0 }}
+                    </label>
+                </div>
+                {% empty %}
+                {% endfor %}
+                {% else %}
+                {% endif %}
+                <form action="">
+                    {% csrf_token %}
+                    <!--                    <div class="input-group mb-3">-->
+                    <input type="text" id="{{text_obj.3}}" name="enterclick"
+                           class="form-control mx-sm-3">
+                    <!--                    </div>-->
+                </form>
+            <td>
+                <form>
+                    {% csrf_token %}
+                    <!--                            wyświetla przycisk dodaj-->
+                    <button type="button" class="btn btn-outline-lightturquoise btn-sm"
+                            id="{{text_obj.3}}button"
+                            onclick="addCheckedChoicesAndText( '{{text_obj.1}}', [{% for choice in text_obj.2 %} ['{{choice.1}}','{{text_obj.3}}-{{choice.2}}'], {% endfor %} ],'{{text_obj.3}}', '{{part}}')">
+                        dodaj
+                    </button>
+                    <br>
+                    <!--                           wyświetla przycisk do usuwanie tekstu-->
+                    <button type="button" class="btn btn-outline-lightpink btn-sm"
+                            id="{{text_obj.3}}deletebutton"
+                    >
+                        usuń&nbsp;
+                    </button>
+                </form>
+            </td>
+            </td>
+
             {% else %}
 
             {% endif %}
