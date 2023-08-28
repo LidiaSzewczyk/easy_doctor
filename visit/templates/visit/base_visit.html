@@ -15,6 +15,12 @@
         document.getElementById('diagn').value = document.getElementById('diagn').value.replace(text + '\n', '')
         sessionStorage.setItem('diagn', document.getElementById('diagn').value);
     }
+
+    function addText(text, vistpart) {
+        vistpart = vistpart.toLowerCase();
+        document.getElementById(vistpart).value = document.getElementById(vistpart).value + text + '\n';
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+    }
 </script>
 
 {%  endblock script %}

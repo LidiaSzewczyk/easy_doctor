@@ -2,24 +2,94 @@
 
 {% block content %}
 <br>
+<!--    wyświetlanie i dodawanie rozpoznania-->
 <div class="row">
     <div class="col-md-11">
         <h3>{{diagnosis.number}} - {{diagnosis.name}} </h3>
         <h5> {% if diagnosis.info %}
             {{diagnosis.info}}
             {% else %}
-
             {% endif %} </h5>
     </div>
+
     <div class="col-md-1">
-        <button type="button" class="btn btn-outline-secondary btn-sm"
+        <button type="button" class="btn btn-outline-lightturquoise btn-sm"
                 onclick="addDiagnosis( '{{diagnosis.number}} - {{diagnosis.name}} ' )">dodaj
         </button>
-        <button type="button" class="btn btn-outline-secondary btn-sm"
+        <button type="button" class="btn btn-outline-lightpink btn-sm"
                 onclick="removeDiagnosis( '{{diagnosis.number}} - {{diagnosis.name}} '  )">
             usuń&nbsp;
         </button>
     </div>
+</div>
 
+
+<div class="row">
+<!--        wyswietla panel po lewej str z czesciami-->
+    <div class="col-4">
+        <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end">
+            <nav class="nav nav-pills flex-column">
+                {% for part, part_content in contents.items %}
+                {% if part_content %}
+                <a class="nav-link" href="#{{ part }}">{{part}} </a>
+                {% else %}
+                {% endif %}
+                {% endfor %}
+            </nav>
+        </nav>
+    </div>
+
+<!--    wyświetla panel środkowy z tekstami-->
+    <div class="col-8">
+        <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true"
+             class="scrollspy-example-2" tabindex="0">
+
+            {% for part, part_content in contents.items %}
+
+
+            <div id="{{ part }}">
+                <h4 class="turquoise">{{part}} </h4>
+                <p>
+                <table class="table table-striped table-hover">
+                    {% for text_obj in part_content%}
+                    <tbody>
+                    <td>
+                        <p> {{ text_obj.0 }} </p>
+                    </td>
+
+                    <td>
+                        <form>
+                            <!--                            wyświetla przycisk dodaj-->
+                            {% csrf_token %}
+                            <button type="button" class="btn btn-outline-lightturquoise btn-sm" id="{{text_obj.3}}button"
+                                    onclick="addText( '{{text_obj.1}}', '{{part}}')">
+                                dodaj
+                            </button>
+
+                            <br>
+
+                            <!--                           wyświetla przycisk do usuwanie tekstu-->
+                            <button type="button" class="btn btn-outline-lightpink btn-sm"
+                                    id="{{text_obj.3}}deletebutton"
+                                    >
+                                usuń&nbsp;
+                            </button>
+                        </form>
+                    </td>
+
+                    </tbody>
+
+                    {% empty %}
+                    {% endfor %}
+                </table>
+                </p>
+            </div>
+
+
+
+            {% empty %}
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock content %}
