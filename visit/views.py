@@ -27,16 +27,19 @@ class DiagnosisDetailView(DetailView):
         context["contents"] = {
             'Wywiad': [(x.text.doctor_text, x.text.patient_text,
                         [(el.doctor_choice, el.patient_choice, el.priority) for el in
-                         x.text.choices.all().order_by('priority')], 'w' + str(x.priority), x.text.form_type) for x in
+                         x.text.choices.all().order_by('priority')], 'w' + str(x.priority), x.text.form_type,
+                        [el.patient_choice for el in x.text.choices.all()]) for x in
                        all_texts.filter(part__name='Wywiad').order_by('priority')],
             'Badanie': [(x.text.doctor_text, x.text.patient_text,
                          [(el.doctor_choice, el.patient_choice, el.priority) for el in
-                          x.text.choices.all().order_by('priority')], 'b' + str(x.priority), x.text.form_type) for x in
+                          x.text.choices.all().order_by('priority')], 'b' + str(x.priority), x.text.form_type,
+                         [el.patient_choice for el in x.text.choices.all()]) for x in
                         all_texts.filter(part__name='Badanie fizykalne').order_by('priority')],
             # 'Rozpoznanie': diagnosis.number + '   ' + diagnosis.name,
             'Zalecenia': [(x.text.doctor_text, x.text.patient_text,
                            [(el.doctor_choice, el.patient_choice, el.priority) for el in
-                            x.text.choices.all().order_by('priority')], 'z' + str(x.priority), x.text.form_type) for x
+                            x.text.choices.all().order_by('priority')], 'z' + str(x.priority), x.text.form_type,
+                           [el.patient_choice for el in x.text.choices.all()]) for x
                           in all_texts.filter(part__name='Zalecenia').order_by('priority')],
 
         }

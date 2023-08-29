@@ -2,6 +2,18 @@
 
 {% block script %}
 <script>
+    function uncheckOneText(input_type, input_id) {
+        let inputData = 'input[type=' + input_type + '][id^=' + input_id + ']'
+        const inputsTF = document.querySelectorAll(inputData);
+
+        for (let i = 0; i < inputsTF.length; i++) {
+            inputsTF[i].checked = false;
+        }
+        const inputsVal = document.querySelectorAll(inputData);
+        for (let i = 0; i < inputsVal.length; i++) {
+            inputsVal[i].value = null;
+        }
+    }
 
     function addDiagnosis(text) {
         document.getElementById('diagn').value = document.getElementById('diagn').value + text + '\n';
@@ -42,10 +54,40 @@
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
     }
 
-    function addRadioText(patient_text, choice, vistpart) {
+    function addRadioText(patient_text, choice, vistpart, choices) {
+        removeRadio(patient_text, choices, vistpart)
         vistpart = vistpart.toLowerCase();
         document.getElementById(vistpart).value = document.getElementById(vistpart).value + patient_text.concat(' ', choice) + '\n'
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+    }
+
+    function removeRadio(text, choices, vistpart) {
+        vistpart = vistpart.toLowerCase();
+        formlines = document.getElementById(vistpart).value.split('\n')
+
+        for (var formline of formlines) {
+            var templine = ''
+            templine = formline.replace(text, '').trim()
+
+            if (choices.includes(templine)) {
+                console.log('true')
+                console.log(formline)
+                document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace(formline, '')
+            }
+        }
+        endlines = document.getElementById(vistpart).value.split('\n')
+
+        for (var endline of endlines) {
+            if (endline === '') {
+                document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace('\n' + endline + '\n', '\n')
+            }
+        }
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+
+    }
+    function removeRadioAndUncheck(text, choices, vistpart, radio_id){
+        removeRadio(text, choices, vistpart)
+        uncheckOneText('radio', radio_id )
     }
 
     function addCheckedChoices(text, form_ids, vistpart) {
@@ -64,8 +106,6 @@
 
 
     function addCheckedChoicesAndText(text, form_ids, text_id, vistpart) {
-        console.log(form_ids)
-        console.log(text_id)
         vistpart = vistpart.toLowerCase()
         var temptext = text
         for (var form_id of form_ids) {
@@ -78,6 +118,83 @@
         document.getElementById(vistpart).value = document.getElementById(vistpart).value + temptext + '\n';
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
     }
+
+    function removeText(text, vistpart) {
+        vistpart = vistpart.toLowerCase();
+        formlines = document.getElementById(vistpart).value.split('\n')
+        for (var formline of formlines) {
+            document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace(text + '\n', '')
+        }
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+    }
+
+
+    function removeStartsWithText(text, vistpart, text_id) {
+        vistpart = vistpart.toLowerCase();
+        formlines = document.getElementById(vistpart).value.split('\n')
+
+        for (var formline of formlines) {
+            if (formline.startsWith(text)) {
+                document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace(formline, '')
+            }
+        }
+        endlines = document.getElementById(vistpart).value.split('\n')
+
+        for (var endline of endlines) {
+            if (endline === '') {
+                document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace('\n' + endline + '\n', '\n')
+            }
+        }
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+        uncheckOneText('checkbox', text_id)
+        uncheckOneText('text', text_id)
+    }
+
+
+    function removeChecbox(choices, vistpart, checkobox_id) {
+        vistpart = vistpart.toLowerCase();
+        formlines = document.getElementById(vistpart).value.split('\n')
+        for (var formline of formlines) {
+            var templine = ''
+            templine = formline.trim()
+            if (choices.includes(templine)) {
+                document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace(formline, '')
+            }
+        }
+        endlines = document.getElementById(vistpart).value.split('\n')
+        for (var endline of endlines) {
+            if (endline === '') {
+                document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace('\n' + endline + '\n', '\n')
+            }
+        }
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+        uncheckOneText('checkbox', checkobox_id)
+    }
+
+    function removeCheckboxCombined(text, choices, vistpart, checkobox_id) {
+        vistpart = vistpart.toLowerCase();
+        formlines = document.getElementById(vistpart).value.split('\n')
+        for (var formline of formlines) {
+            var templine = ''
+            templine = formline.replace(text, '').trim()
+            for (let choice of choices) {
+                if (templine.includes(choice)) {
+                    document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace(formline, '')
+                }
+            }
+        }
+        endlines = document.getElementById(vistpart).value.split('\n')
+
+        for (var endline of endlines) {
+            if (endline === '') {
+                document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace('\n' + endline + '\n', '\n')
+            }
+        }
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+        uncheckOneText('checkbox', checkobox_id)
+    }
+
+
 </script>
 
 {%  endblock script %}
