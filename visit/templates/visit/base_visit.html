@@ -279,10 +279,14 @@
 </script>
 {% endblock scriptend %}
 {% block sidebar %}
+    <div class="row">
+    <div class=" col-1"></div>
+    <div class=" col-10">
 
 <form action="/patient_visit/" method="post">
-    <div class=" col-md-11  buttons_list">
-        <button type="reset" class="btn btn-outline-pink" onclick="clearSession()">Nowy formularz / Wyczyść</button>
+
+    <div class="buttons_list">
+        <button type="reset" class="btn btn-outline-pink" onclick="clearSession()">Nowy formularz </button>
         <button type="submit" class="btn btn-outline-turquoise">Zapisz</button>
     </div>
     <br>
@@ -309,5 +313,7 @@
     <textarea class="my-form-control" id="zalecenia" type="text" name="patient_form" rows="10" cols="55"></textarea>
     <br>
     <button type="submit" class="btn btn-outline-turquoise">Zapisz</button>
-</form>
+
+</form></div></div>
+    <div class=" col-1"></div>
 {% endblock sidebar %}
