@@ -30,19 +30,64 @@
 
     function addText(text, vistpart) {
         vistpart = vistpart.toLowerCase();
+        if (!( document.getElementById(vistpart).value.includes(text))) {
         document.getElementById(vistpart).value = document.getElementById(vistpart).value + text + '\n';
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+    }}
+
+    function removeText(text, vistpart) {
+        vistpart = vistpart.toLowerCase();
+        formlines = document.getElementById(vistpart).value.split('\n')
+        for (var formline of formlines) {
+            document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace(text + '\n', '')
+        }
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
     }
 
 
+    function addAndRemoveText(text, visitpart, text_id) {
+        if (document.getElementById(text_id).checked) {
+            addText(text, visitpart)
+        } else {
+            removeText(text, visitpart)
+        }
+    }
+
     function addFilledText(text, form_id, vistpart) {
+        removeStartsWithText(text, vistpart, form_id)
         vistpart = vistpart.toLowerCase()
         document.getElementById(vistpart).value = document.getElementById(vistpart).value + text + ' ' + document.getElementById(form_id).value + '.\n';
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
     }
 
+    function removeStartsWithText(text, vistpart) {
+        vistpart = vistpart.toLowerCase();
+        formlines = document.getElementById(vistpart).value.split('\n')
+
+        for (var formline of formlines) {
+            if (formline.startsWith(text)) {
+                document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace(formline, '')
+            }
+        }
+        endlines = document.getElementById(vistpart).value.split('\n')
+
+        for (var endline of endlines) {
+            if (endline === '') {
+                document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace('\n' + endline + '\n', '\n')
+            }
+        }
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+
+    }
+
+    function removeStartsWithTextAndUncheck(text, vistpart, text_id) {
+        removeStartsWithText(text, vistpart)
+        uncheckOneText('checkbox', text_id)
+        uncheckOneText('text', text_id)
+    }
+
     function addFilledChoices(text, form_ids, vistpart) {
-        console.log(form_ids)
+        removeStartsWithText(text, vistpart, form_ids)
         vistpart = vistpart.toLowerCase()
         var temptext = text
         for (var form_id of form_ids) {
@@ -60,6 +105,7 @@
         document.getElementById(vistpart).value = document.getElementById(vistpart).value + patient_text.concat(' ', choice) + '\n'
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
     }
+
 
     function removeRadio(text, choices, vistpart) {
         vistpart = vistpart.toLowerCase();
@@ -85,13 +131,14 @@
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
 
     }
-    function removeRadioAndUncheck(text, choices, vistpart, radio_id){
+
+    function removeRadioAndUncheck(text, choices, vistpart, radio_id) {
         removeRadio(text, choices, vistpart)
-        uncheckOneText('radio', radio_id )
+        uncheckOneText('radio', radio_id)
     }
 
-    function addCheckedChoices(text, form_ids, vistpart) {
-
+    function addCheckedCombined(text, form_ids, vistpart, choices) {
+        removeCheckboxCombined(text, choices, vistpart)
         vistpart = vistpart.toLowerCase()
         var temptext = text
         for (var form_id of form_ids) {
@@ -104,38 +151,16 @@
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
     }
 
-
-    function addCheckedChoicesAndText(text, form_ids, text_id, vistpart) {
-        vistpart = vistpart.toLowerCase()
-        var temptext = text
-        for (var form_id of form_ids) {
-
-            if (document.getElementById(form_id[1]).checked) {
-                temptext = temptext + ' ' + form_id[0] + ', '
-            }
-        }
-        temptext = temptext + ' ' + document.getElementById(text_id).value
-        document.getElementById(vistpart).value = document.getElementById(vistpart).value + temptext + '\n';
-        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
-    }
-
-    function removeText(text, vistpart) {
+    function removeCheckboxCombined(text, choices, vistpart) {
         vistpart = vistpart.toLowerCase();
         formlines = document.getElementById(vistpart).value.split('\n')
         for (var formline of formlines) {
-            document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace(text + '\n', '')
-        }
-        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
-    }
-
-
-    function removeStartsWithText(text, vistpart, text_id) {
-        vistpart = vistpart.toLowerCase();
-        formlines = document.getElementById(vistpart).value.split('\n')
-
-        for (var formline of formlines) {
-            if (formline.startsWith(text)) {
-                document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace(formline, '')
+            var templine = ''
+            templine = formline.replace(text, '').trim()
+            for (let choice of choices) {
+                if (templine.includes(choice)) {
+                    document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace(formline, '')
+                }
             }
         }
         endlines = document.getElementById(vistpart).value.split('\n')
@@ -146,8 +171,11 @@
             }
         }
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
-        uncheckOneText('checkbox', text_id)
-        uncheckOneText('text', text_id)
+    }
+
+    function removeCheckboxCombinedAndUncheck(text, choices, vistpart, checkobox_id) {
+        removeCheckboxCombined(text, choices, vistpart)
+        uncheckOneText('checkbox', checkobox_id)
     }
 
 
@@ -171,27 +199,20 @@
         uncheckOneText('checkbox', checkobox_id)
     }
 
-    function removeCheckboxCombined(text, choices, vistpart, checkobox_id) {
-        vistpart = vistpart.toLowerCase();
-        formlines = document.getElementById(vistpart).value.split('\n')
-        for (var formline of formlines) {
-            var templine = ''
-            templine = formline.replace(text, '').trim()
-            for (let choice of choices) {
-                if (templine.includes(choice)) {
-                    document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace(formline, '')
-                }
-            }
-        }
-        endlines = document.getElementById(vistpart).value.split('\n')
 
-        for (var endline of endlines) {
-            if (endline === '') {
-                document.getElementById(vistpart).value = document.getElementById(vistpart).value.replace('\n' + endline + '\n', '\n')
+    function addCheckedChoicesAndText(text, form_ids, text_id, vistpart) {
+        removeStartsWithText(text, vistpart)
+        vistpart = vistpart.toLowerCase()
+        var temptext = text
+        for (var form_id of form_ids) {
+
+            if (document.getElementById(form_id[1]).checked) {
+                temptext = temptext + ' ' + form_id[0] + ', '
             }
         }
+        temptext = temptext + ' ' + document.getElementById(text_id).value
+        document.getElementById(vistpart).value = document.getElementById(vistpart).value + temptext + '\n';
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
-        uncheckOneText('checkbox', checkobox_id)
     }
 
 
