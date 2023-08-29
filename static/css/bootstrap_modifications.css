@@ -178,3 +178,8 @@ h4.turquoise {
 .end-line {
     justify-content: flex-end;
 }
+
+.my-column {
+    flex-direction: column;
+    justify-content: space-around;
+}

@@ -231,7 +231,7 @@
                 {% else %}
                 {% endif %}
             <td>
-                <form>
+                <form >
                     {% csrf_token %}
                     <!--                            wyświetla przycisk dodaj-->
                     <button type="button" class="btn btn-outline-lightturquoise btn-sm"
@@ -239,7 +239,7 @@
                             onclick="addCheckedChoices( '{{text_obj.1}}', [{% for choice in text_obj.2 %} ['{{choice.1}}','{{text_obj.3}}-{{choice.2}}'], {% endfor %}], '{{part}}')">
                         dodaj
                     </button>
-                    <br>
+                    <br><br>
                     <!--                           wyświetla przycisk do usuwanie tekstu-->
                     <button type="button" class="btn btn-outline-lightpink btn-sm"
                             id="{{text_obj.3}}deletebutton"
@@ -282,7 +282,7 @@
                             onclick="addCheckedChoicesAndText( '{{text_obj.1}}', [{% for choice in text_obj.2 %} ['{{choice.1}}','{{text_obj.3}}-{{choice.2}}'], {% endfor %} ],'{{text_obj.3}}', '{{part}}')">
                         dodaj
                     </button>
-                    <br>
+                    <br><br>
                     <!--                           wyświetla przycisk do usuwanie tekstu-->
                     <button type="button" class="btn btn-outline-lightpink btn-sm"
                             id="{{text_obj.3}}deletebutton"

@@ -74,7 +74,7 @@
                 temptext = temptext + ' ' + form_id[0] + ', '
             }
         }
-        temptext = temptext +' ' +  document.getElementById(text_id).value
+        temptext = temptext + ' ' + document.getElementById(text_id).value
         document.getElementById(vistpart).value = document.getElementById(vistpart).value + temptext + '\n';
         sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
     }
@@ -97,13 +97,54 @@
         })
     }
 
+
+    document.getElementsByName("patient_form").forEach(saveInSessionStorage)
+
+    function saveInSessionStorage(item, index, arr) {
+        item.addEventListener('input', function (event) {
+            event.preventDefault();
+            sessionStorage.setItem(item.id, event.target.value);
+        })
+
+    }
+
+
+    document.getElementById("diagn").innerHTML = sessionStorage.getItem("diagn");
+    document.getElementById("patient_name").innerHTML = sessionStorage.getItem("patient_name");
+    document.getElementById("badanie").innerHTML = sessionStorage.getItem("badanie");
+    document.getElementById("wywiad").innerHTML = sessionStorage.getItem("wywiad");
+    document.getElementById("zalecenia").innerHTML = sessionStorage.getItem("zalecenia");
+
+    function uncheckAll() {
+        const inputsTF = document.querySelectorAll('input[type=checkbox], input[type=radio], input[type=text]');
+
+        for (let i = 0; i < inputsTF.length; i++) {
+            inputsTF[i].checked = false;
+        }
+        const inputsVal = document.querySelectorAll('input[type=text]');
+        for (let i = 0; i < inputsVal.length; i++) {
+            inputsVal[i].value = null;
+        }
+    }
+
+    function clearSession() {
+        sessionStorage.clear();
+        document.getElementById("diagn").innerHTML = sessionStorage.getItem("diagn");
+        document.getElementById("patient_name").innerHTML = sessionStorage.getItem("patient_name");
+        document.getElementById("badanie").innerHTML = sessionStorage.getItem("badanie");
+        document.getElementById("wywiad").innerHTML = sessionStorage.getItem("wywiad");
+        document.getElementById("zalecenia").innerHTML = sessionStorage.getItem("zalecenia");
+        uncheckAll()
+
+    }
+
 </script>
 {% endblock scriptend %}
 {% block sidebar %}
 
 <form action="/patient_visit/" method="post">
     <div class=" col-md-11  buttons_list">
-        <button type="reset" class="btn btn-outline-pink">Nowy formularz / Wyczyść</button>
+        <button type="reset" class="btn btn-outline-pink" onclick="clearSession()">Nowy formularz / Wyczyść</button>
         <button type="submit" class="btn btn-outline-turquoise">Zapisz</button>
     </div>
     <br>
