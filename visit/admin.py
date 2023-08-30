@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from visit.models import Diagnosis, Priority, Choice, Text, Part, FormType
+from .models import Diagnosis, Priority, Choice, Text, Part, FormType
 
 
 class PriorityInline(admin.TabularInline):

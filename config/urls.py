@@ -25,6 +25,7 @@ admin.site.index_title = "Welcome to EASY Doctor Researcher Portal"
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('visit/', include('visit.urls', namespace='visit')),
+                  path('patient/', include('patient.urls', namespace='patient')),
                   path("__debug__/", include("debug_toolbar.urls")),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
