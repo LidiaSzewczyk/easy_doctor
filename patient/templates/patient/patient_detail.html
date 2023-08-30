@@ -74,9 +74,11 @@
                                     <td><p>Zmodyfikowano: {{patient.updated_at}}</p></td>
                                     </tbody>
                                     <tbody>
-
                                 </table>
                                 </p>
+                                <a href="{% url 'patient:patient_update' patient.pk %}">
+                                    <button type="button" class="btn btn-outline-lightturquoise btn-sm"> edytuj</button>
+                                </a>
                             </div>
                         </div>
                     </div>

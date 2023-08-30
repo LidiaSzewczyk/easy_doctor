@@ -18,7 +18,7 @@ class Patient(TimeStampedModel):
     pesel = models.CharField(max_length=20, verbose_name='PESEL', help_text='PESEL')
     phone = models.CharField(max_length=15, verbose_name='Tel.', help_text='Tel.', null=True, blank=True)
     doctor = models.ForeignKey(user, on_delete=models.CASCADE, related_name='patients', verbose_name='lekarz',
-                               help_text='lekarz')
+                               help_text='lekarz', default=2)
 
     def get_full_name(self):
         """

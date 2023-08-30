@@ -1,6 +1,9 @@
-from django.views.generic import ListView, DetailView
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
-from patient.models import Patient
+from .forms import PatientForm
+from .models import Patient
 
 
 class PatientListView(ListView):
@@ -15,13 +18,17 @@ class PatientDetailView(DetailView):
     template_name = 'patient/patient_detail.html'
     context_object_name = 'patient'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
 
-        context["content"] = {
-            'Dane': '',
-            'Wizyty': '',
+class PatientCreateView(CreateView):
+    model = Patient
+    form_class = PatientForm
+    template_name = 'patient/patient_create.html'
+    success_url = '/patient/'
 
-        }
-        print(10 * "*", type(context), "context", context)
-        return context
+
+class PatientUpdateView(UpdateView):
+    model = Patient
+    form_class = PatientForm
+    template_name = 'patient/patient_create.html'
+    context_object_name = 'patient'
+    success_url ='/patient/'
