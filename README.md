@@ -16,7 +16,7 @@
 ### TO DO
 
 * generowanie pdf z wizyty
-* pacjent crud, lista, wyszukiwanie
+* pacjent crud, lista, wyszukiwanie, policzyć wiek, poprawić formularz- daty, validacja, 
 * pracownik- dostęp tylko do pacjentów których miał na wizycie
 * wysyłanie mailem zaleceń /całej wizyty
 * podpis elektronczny

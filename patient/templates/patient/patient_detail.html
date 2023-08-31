@@ -11,9 +11,16 @@
         <div class="row">
             <div class="col-md-11">
                 <h3>{{patient.get_full_name}} </h3>
-                <h6>ur.
-                    {{patient.birth_date}} policzyć wiek
-                </h6>
+                <div class="row">
+                    <div class="col-md-6">ur. {{patient.birth_date}} roku  </div>
+                    <div class="col-md-6">Wiek:  {% for label, val in age.items %}
+                    {{val}} {{label}}
+                    {% empty %}
+                    {% endfor %} </div>
+                </div>
+
+
+
             </div>
             <div class="col-md-1 ">
                 <button type="button" class="btn btn-outline-lightpink btn-sm" data-bs-toggle="modal"
