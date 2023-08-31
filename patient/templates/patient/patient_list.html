@@ -4,7 +4,14 @@
     <div class="col-md-1"></div>
     <div class="col-md-10">
         <br>
-        <h4>Pacjenci <a href="{% url 'patient:patient_create' %}"><button type="button" class="btn btn-outline-lightturquoise btn-sm" >+</button></a></h4>
+        <div class="row">
+            <div class="col-md-7"><h4>Pacjenci </h4></div>
+            <div class="col-md-5"><a href="{% url 'patient:patient_create' %}">
+                <button type="button" class="btn btn-outline-lightturquoise">+</button>
+            </a></div>
+
+        </div>
+
         <br>
         <table class="table  table-hover">
             <thead>
@@ -19,7 +26,7 @@
             <tbody>
             <tr>
                 <th scope="row">{{patient.id}}</th>
-                <td><a class="turquoise" href="{{patient.get_absolute_url}}" > {{patient.get_full_name}}</a></td>
+                <td><a class="turquoise" href="{{patient.get_absolute_url}}"> {{patient.get_full_name}}</a></td>
 
                 <td><a class="turquoise" href="{{patient.get_absolute_url}}"> {{patient.birth_date}} </a></td>
             </tr>
@@ -31,6 +38,6 @@
 
         </table>
     </div>
-        <div class="col-md-1"></div>
+    <div class="col-md-1"></div>
 </div>
 {% endblock content %}

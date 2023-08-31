@@ -16,16 +16,15 @@
                 </h6>
             </div>
             <div class="col-md-1 ">
-                <button type="button" class="btn btn-outline-lightturquoise btn-sm">
-                    dodaj
-                </button>
-
-                <button type="button" class="btn btn-outline-lightpink btn-sm">
+                <button type="button" class="btn btn-outline-lightpink btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">
                     usuń&nbsp;
                 </button>
 
+
             </div>
         </div>
+        <br>
     </div>
     <div class="col-2"></div>
 </div>
@@ -76,9 +75,14 @@
                                     <tbody>
                                 </table>
                                 </p>
-                                <a href="{% url 'patient:patient_update' patient.pk %}">
-                                    <button type="button" class="btn btn-outline-lightturquoise btn-sm"> edytuj</button>
-                                </a>
+                                <div class="row">
+                                    <div class="col-lg-10"></div>
+                                    <div class="col-lg-2"><a href="{% url 'patient:patient_update' patient.pk %}">
+                                        <button type="button" class="btn btn-outline-lightturquoise btn-sm"> edytuj
+                                        </button>
+                                    </a></div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -99,11 +103,19 @@
                          data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <div>
+                                <div class="row">
+                                    <div class="col-lg-10"></div>
+                                    <div class="col-lg-2"><a href="">
+                                        <button type="button" class="btn btn-outline-lightturquoise btn-sm"> nowa
+                                            wizyta
+                                        </button>
+                                    </a></div>
+                                </div>
                                 <p>
                                 <table class="table table-striped table-hover">
                                     <tbody>
                                     <td>
-                                        <p> Wizyzty </p>
+                                        <p> data i rozpoznanie z przebytych wizyt </p>
                                     </td>
                                     <td>
 
@@ -118,6 +130,30 @@
             </div>
         </div>
         <div class="col-md-1"></div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{patient.get_full_name}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Czy jesteś pewien, że chcesz usunąć tego pacjenta i wszystkie jego wizyty?
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-outline-lightturquoise" data-bs-dismiss="modal">anuluj</button>
+                <form method="post" action="{% url 'patient:patient_delete' patient.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">usuń</button>
+                </form>
+
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}

@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .forms import PatientForm
 from .models import Patient
@@ -23,7 +23,6 @@ class PatientCreateView(CreateView):
     model = Patient
     form_class = PatientForm
     template_name = 'patient/patient_create.html'
-    success_url = '/patient/'
 
 
 class PatientUpdateView(UpdateView):
@@ -31,4 +30,8 @@ class PatientUpdateView(UpdateView):
     form_class = PatientForm
     template_name = 'patient/patient_create.html'
     context_object_name = 'patient'
-    success_url ='/patient/'
+
+
+class PatientDeleteView(DeleteView):
+    model = Patient
+    success_url = reverse_lazy('patient:patient_list')
