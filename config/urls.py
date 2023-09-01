@@ -26,6 +26,7 @@ urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('visit/', include('visit.urls', namespace='visit')),
                   path('patient/', include('patient.urls', namespace='patient')),
+                  path('patient_visit/', include('patient_visit.urls', namespace='patient_visit')),
                   path("__debug__/", include("debug_toolbar.urls")),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
