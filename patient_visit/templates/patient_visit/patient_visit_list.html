@@ -1,0 +1,40 @@
+{% extends 'visit/base_visit.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-11">
+        <h6>Opracowane rozpoznania</h6>
+        <table class="table  table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Pacjent</th>
+                <th scope="col">Data</th>
+                <th scope="col">Rozpoznanie</th>
+            </tr>
+            </thead>
+
+            {% for visit  in patient_visits %}
+
+            <tbody>
+
+            <tr>
+                <th scope="row">{{visit.id}}</th>
+                <td><a class="turquoise" href=""> {{visit.patient}}</a></td>
+<!--                <td><a class="turquoise" href="{{diagn.get_absolute_url}}"> {{visit.patient}}</a></td>-->
+                <td><a class="turquoise" href=""> {{visit.created_at}}</a></td>
+                <td><a class="turquoise" href=""> {{visit.diagnosis}}</a></td>
+<!--                <td><a class="turquoise" href="{{diagn.get_absolute_url}}"> {{visit.doctor}} </a></td>-->
+
+            </tr>
+            </tbody>
+
+
+            {% empty %}
+            {% endfor %}
+
+
+        </table>
+    </div>
+</div>
+{% endblock content %}
