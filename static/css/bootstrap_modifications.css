@@ -19,11 +19,6 @@
     padding: 0 0 0 30px;
 }
 
-
-a.turquoise {
-    text-decoration: none;
-}
-
 a.turquoise {
     color: #047187;
     text-decoration: none
@@ -176,7 +171,7 @@ button.btn-outline-lightturquoise {
     --bs-nav-pills-link-active-bg: #5795A1;
 }
 
-h4.turquoise {
+h4.turquoise, h5.turquoise, h6.turquoise{
     color: #5795A1;
 }
 

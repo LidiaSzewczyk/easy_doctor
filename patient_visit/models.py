@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls import reverse
 
 from patient.models import Patient
 from visit.models import TimeStampedModel
@@ -26,3 +27,6 @@ class PatientVisit(TimeStampedModel):
     class Meta:
         verbose_name = 'wizyta'
         verbose_name_plural = 'wizyty'
+
+    def get_absolute_url(self):
+        return reverse('patient_visit:patientvisit_detail', kwargs={'pk': self.pk})

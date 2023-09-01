@@ -1,10 +1,10 @@
 from dateutil.relativedelta import *
-from datetime import date
 
 
-def calc_age(birth_date):
-    if birth_date and birth_date < date.today():
-        age = relativedelta(date.today(), birth_date)
+
+def calc_age(birth_date, date_to_compare):
+    if birth_date and birth_date < date_to_compare:
+        age = relativedelta(date_to_compare, birth_date)
         if age.years > 10:
             age = {"lat": age.years}
         elif 10 > age.years > 1:

@@ -1,7 +1,10 @@
+from datetime import date
+
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
+from patient.helpers import calc_age
 from .models import PatientVisit
 
 
@@ -11,5 +14,17 @@ class PatientVisitListView(ListView):
     template_name = 'patient_visit/patient_visit_list.html'
     # paginate_by = 10
 
-    # def get_absolute_url(self):
-    #     return reverse('patient_visit:patient_visit_list', kwargs={'pk': self.pk})
+
+class PatientVisitDetailView(DetailView):
+    model = PatientVisit
+    template_name = 'patient_visit/patientvisit_detail.html'
+    context_object_name = 'visit'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["age_now"] = calc_age(self.object.patient.birth_date, date.today())
+        context["age_visit"] = calc_age(self.object.patient.birth_date, self.object.start_date.date())
+        filter_criteria = {'patient': self.object.patient}
+        all_patient_visits = PatientVisit.objects.filter(**filter_criteria).values('pk','start_date', 'diagnosis')
+        context["all_patient_visits"] = all_patient_visits
+        return context
