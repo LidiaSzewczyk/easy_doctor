@@ -30,11 +30,10 @@
 
     function addText(text, vistpart) {
         vistpart = vistpart.toLowerCase();
-        if (!(document.getElementById(vistpart).value.includes(text))) {
-            document.getElementById(vistpart).value = document.getElementById(vistpart).value + text + '\n';
-            sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
-        }
-    }
+        if (!( document.getElementById(vistpart).value.includes(text))) {
+        document.getElementById(vistpart).value = document.getElementById(vistpart).value + text + '\n';
+        sessionStorage.setItem(vistpart, document.getElementById(vistpart).value);
+    }}
 
     function removeText(text, vistpart) {
         vistpart = vistpart.toLowerCase();
@@ -236,7 +235,10 @@
         })
     }
 
-    function saveInSessionStorage(item) {
+
+    document.getElementsByName("patient_form").forEach(saveInSessionStorage)
+
+    function saveInSessionStorage(item, index, arr) {
         item.addEventListener('input', function (event) {
             event.preventDefault();
             sessionStorage.setItem(item.id, event.target.value);
@@ -244,29 +246,12 @@
 
     }
 
-    const keys_to_save = ["patient", "diagnosis", "interview", "examination", "recommendations"];
-    keys_to_save.forEach(key_to_save => {
-        document.getElementsByName(key_to_save).forEach(saveInSessionStorage)
-    });
-    // document.getElementsByName("patient").forEach(saveInSessionStorage)
-    // document.getElementsByName("diagnosis").forEach(saveInSessionStorage)
-    // document.getElementsByName("interview").forEach(saveInSessionStorage)
-    // document.getElementsByName("examination").forEach(saveInSessionStorage)
-    // document.getElementsByName("recommendations").forEach(saveInSessionStorage)
 
-
-    const session_storage_keys = ["diagn",  "badanie", "wywiad", "zalecenia"];
-    session_storage_keys.forEach(session_key => {
-        const elementId = session_key;
-        const value = sessionStorage.getItem(session_key);
-        const element = document.getElementById(elementId);
-
-        if (element) {
-            element.innerHTML = value || "";
-        }
-    });
-
-    document.getElementById("id_patient").value = sessionStorage.getItem("id_patient");
+    document.getElementById("diagn").innerHTML = sessionStorage.getItem("diagn");
+    document.getElementById("patient_name").innerHTML = sessionStorage.getItem("patient_name");
+    document.getElementById("badanie").innerHTML = sessionStorage.getItem("badanie");
+    document.getElementById("wywiad").innerHTML = sessionStorage.getItem("wywiad");
+    document.getElementById("zalecenia").innerHTML = sessionStorage.getItem("zalecenia");
 
     function uncheckAll() {
         const inputsTF = document.querySelectorAll('input[type=checkbox], input[type=radio], input[type=text]');
@@ -283,7 +268,7 @@
     function clearSession() {
         sessionStorage.clear();
         document.getElementById("diagn").innerHTML = sessionStorage.getItem("diagn");
-        document.getElementById("id_patient").value = sessionStorage.getItem("id_patient");
+        document.getElementById("patient_name").innerHTML = sessionStorage.getItem("patient_name");
         document.getElementById("badanie").innerHTML = sessionStorage.getItem("badanie");
         document.getElementById("wywiad").innerHTML = sessionStorage.getItem("wywiad");
         document.getElementById("zalecenia").innerHTML = sessionStorage.getItem("zalecenia");
@@ -294,39 +279,41 @@
 </script>
 {% endblock scriptend %}
 {% block sidebar %}
-<div class="row">
+    <div class="row">
 
     <div class="col-md-11">
-        <form method="post">
-            {% csrf_token %}
-            <div class="buttons_list">
-                <button type="reset" class="btn btn-outline-pink" onclick="clearSession()">Nowy formularz</button>
-                <button type="submit" class="btn btn-outline-turquoise">Zapisz</button>
-            </div>
-            <br>
 
-            {% for field in patient_visit_form %}
-            <div class="fieldWrapper">
-                {{ field.errors }}
-                {{ field.label_tag }} {{ field }}
-            </div>
-            <br>
-            {% endfor %}
-            <div class="row">
+<form action="/patient_visit/" method="post">
 
-                <div class="col-md-1">
-                    <button type="button" class="btn btn-outline-lightpink" id="backButton">
-                        anuluj
-                    </button>
-                </div>
-                <div class="col-md-9"></div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-outline-turquoise">zapisz</button>
-
-                    </a></div>
-            </div>
-        </form>
+    <div class="buttons_list">
+        <button type="reset" class="btn btn-outline-pink" onclick="clearSession()">Nowy formularz </button>
+        <button type="submit" class="btn btn-outline-turquoise">Zapisz</button>
     </div>
-</div>
-<div class=" col-md-1"></div>
+    <br>
+    {% csrf_token %}
+
+    <label class="my-form-label" for="patient_name">Pacjent: </label>
+    <br>
+    <textarea class="my-form-control" id="patient_name" type="text" name="patient_form" rows="1" cols="55"></textarea>
+    <br>
+    <label class="my-form-label" for="diagn">Rozpoznanie: </label>
+    <br>
+    <textarea class="my-form-control" id="diagn" type="text" name="patient_form" rows="2" cols="55"></textarea>
+    <br>
+    <label class="my-form-label" for="wywiad">Wywiad: </label>
+    <br>
+    <textarea class="my-form-control" id="wywiad" type="text" name="patient_form" rows="10" cols="55"></textarea>
+    <br>
+    <label class="my-form-label" for="badanie">Badanie: </label>
+    <br>
+    <textarea class="my-form-control" id="badanie" type="text" name="patient_form" rows="10" cols="55"></textarea>
+    <br>
+    <label class="my-form-label" for="zalecenia">Zalecenia: </label>
+    <br>
+    <textarea class="my-form-control" id="zalecenia" type="text" name="patient_form" rows="10" cols="55"></textarea>
+    <br>
+    <button type="submit" class="btn btn-outline-turquoise">Zapisz</button>
+
+</form></div></div>
+    <div class=" col-md-1"></div>
 {% endblock sidebar %}

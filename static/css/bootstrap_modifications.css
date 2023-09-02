@@ -51,7 +51,8 @@ textarea.my-form-control {
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 
-textarea.my-form-control:focus {
+
+textarea.my-form-control:focus  {
     color: #333333;
     background-color: var(--bs-form-control-bg);
     border-color: #AFEEEE;
@@ -59,9 +60,20 @@ textarea.my-form-control:focus {
     box-shadow: 0 0 0 .1rem #AFEEEE
 }
 
+
 label.my-form-label {
     margin-bottom: .5rem;
     color: #808080;
+}
+.form-select:focus {
+    border-color:#AFEEEE;
+    outline: 0;
+    box-shadow: 0 0 0 .1rem #AFEEEE
+}
+
+.form-select.is-valid:focus, .was-validated .form-select:valid:focus {
+    border-color: var(--bs-success);
+    box-shadow: 0 0 0 .1rem #AFEEEE
 }
 
 button.btn-outline-pink {

@@ -1,17 +1,18 @@
 from django.db import connection
 from django.views.generic import ListView, DetailView
 
-from visit.models import Diagnosis
+from patient_visit.views import PatientVisitFormView
+from .models import Diagnosis
 
 
-class DiagnosisListView(ListView):
+class DiagnosisListView(ListView, PatientVisitFormView):
     queryset = Diagnosis.objects.all()
     context_object_name = 'diagnosis'
     template_name = 'visit/diagnosis_list.html'
     # paginate_by = 10
 
 
-class DiagnosisDetailView(DetailView):
+class DiagnosisDetailView(DetailView, PatientVisitFormView):
     model = Diagnosis
     template_name = 'visit/diagnosis_detail.html'
     context_object_name = 'diagnosis'
