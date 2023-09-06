@@ -4,7 +4,7 @@
 <br>
 
 
-<!--    wyświetlanie imię nazwisko i wiem-->
+<!--    wyświetlanie imię nazwisko i wiek-->
 <div class="row">
     <div class="col-1"></div>
     <div class="col-9 ">
@@ -90,9 +90,14 @@
                                 </table>
                                 </p>
                                 <div class="row">
-                                    <div class="col-lg-10"></div>
+                                       <div class="col-lg-2">
+                                        <button type="button" class="btn btn-outline-lightpink btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#patientVisitDeleteModal"> usuń wizytę
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-8"></div>
                                     <div class="col-lg-2"><a
-                                            href="{% url 'patient_visit:patientvisit_detail' visit.pk %}">
+                                            href="{% url 'patient_visit:patientvisit_update' visit.pk %}">
                                         <button type="button" class="btn btn-outline-lightturquoise btn-sm"> edytuj
                                         </button>
                                     </a></div>
@@ -142,7 +147,37 @@
                 <button type="button" class="btn btn-outline-lightturquoise" data-bs-dismiss="modal">
                     anuluj
                 </button>
-                <form method="post" action="{% url 'patient_visit:patientvisit_detail' visit.pk %}">
+                <form method="post" action="{% url 'patient:patient_delete' patient.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">usuń</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal do potwierdzenia usunięcia wizyty -->
+<div class="modal fade" id="patientVisitDeleteModal" tabindex="-1" aria-labelledby="patientVisitDeleteModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="patientVisitDeleteModalLabel">
+                     {{visit.patient.get_full_name}}
+                    <br>Wizyta {{ visit.start_date }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Czy jesteś pewien, że chcesz usunąć wizytę?
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-outline-lightturquoise" data-bs-dismiss="modal">
+                    anuluj
+                </button>
+                <form method="post" action="{% url 'patient_visit:patientvisit_delete' visit.pk %}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger">usuń</button>
                 </form>

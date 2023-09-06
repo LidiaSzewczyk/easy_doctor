@@ -1,26 +1,33 @@
 from django.db import connection
 from django.views.generic import ListView, DetailView
 
-from patient_visit.views import PatientVisitFormView
+from patient_visit.forms import PatientVisitForm
+from patient_visit.views import PatientVisitCreateView
 from .models import Diagnosis
 
 
-class DiagnosisListView(ListView, PatientVisitFormView):
+class DiagnosisListView(ListView):
     queryset = Diagnosis.objects.all()
     context_object_name = 'diagnosis'
     template_name = 'visit/diagnosis_list.html'
     # paginate_by = 10
 
+    def post(self, request, *args, **kwargs):
+        return PatientVisitCreateView.as_view()(request)
 
-class DiagnosisDetailView(DetailView, PatientVisitFormView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['patient_visit_form'] = PatientVisitForm()
+        return context
+
+
+class DiagnosisDetailView(DetailView):
     model = Diagnosis
     template_name = 'visit/diagnosis_detail.html'
     context_object_name = 'diagnosis'
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
         diagnosis = self.object
         all_texts = diagnosis.priorities.all()
         print(connection.queries)
@@ -44,5 +51,8 @@ class DiagnosisDetailView(DetailView, PatientVisitFormView):
                           in all_texts.filter(part__name='Zalecenia').order_by('priority')],
 
         }
-        print(10 * "*", type(context), "context", context)
+        context['patient_visit_form'] = PatientVisitForm()
         return context
+
+    def post(self, request, *args, **kwargs):
+        return PatientVisitCreateView.as_view()(request)

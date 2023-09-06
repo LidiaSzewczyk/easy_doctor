@@ -4,20 +4,27 @@ from datetime import date
 
 from patient_visit.forms import PatientVisitForm
 from patient_visit.models import PatientVisit
-from patient_visit.views import PatientVisitFormView
+from patient_visit.views import PatientVisitCreateView
 from .forms import PatientForm
 from .helpers import calc_age
 from .models import Patient
 
 
-class PatientListView(ListView, PatientVisitFormView):
+class PatientListView(ListView):
     queryset = Patient.objects.all()
     context_object_name = 'patients'
     template_name = 'patient/patients_list.html'
-    # paginate_by = 10
+
+    def post(self, request, *args, **kwargs):
+        return PatientVisitCreateView.as_view()(request)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['patient_visit_form'] = PatientVisitForm()
+        return context
 
 
-class PatientDetailView(DetailView, PatientVisitFormView):
+class PatientDetailView(DetailView):
     model = Patient
     template_name = 'patient/patient_detail.html'
     context_object_name = 'patient'
@@ -28,10 +35,14 @@ class PatientDetailView(DetailView, PatientVisitFormView):
         filter_criteria = {'patient': self.object}
         all_patient_visits = PatientVisit.objects.filter(**filter_criteria).values('pk', 'start_date', 'diagnosis')
         context["all_patient_visits"] = all_patient_visits
+        context['patient_visit_form'] = PatientVisitForm()
         return context
 
+    def post(self, request, *args, **kwargs):
+        return PatientVisitCreateView.as_view()(request)
 
-class PatientCreateView(CreateView, PatientVisitFormView):
+
+class PatientCreateView(CreateView):
     model = Patient
     form_class = PatientForm
     template_name = 'patient/patient_create.html'
@@ -41,8 +52,15 @@ class PatientCreateView(CreateView, PatientVisitFormView):
         context['patient_visit_form'] = PatientVisitForm()
         return context
 
+    def post(self, request, *args, **kwargs):
+        if 'patient_visit_submit' in request.POST:
+            return PatientVisitCreateView.as_view()(request)
 
-class PatientUpdateView(UpdateView, PatientVisitFormView):
+        if 'patient_create_submit' in request.POST:
+            return super().post(request, *args, **kwargs)
+
+
+class PatientUpdateView(UpdateView):
     model = Patient
     form_class = PatientForm
     template_name = 'patient/patient_create.html'
@@ -53,7 +71,15 @@ class PatientUpdateView(UpdateView, PatientVisitFormView):
         context['patient_visit_form'] = PatientVisitForm()
         return context
 
+    def post(self, request, *args, **kwargs):
+        if 'patient_visit_submit' in request.POST:
+            return PatientVisitCreateView.as_view()(request)
 
-class PatientDeleteView(DeleteView, PatientVisitFormView):
+        if 'patient_create_submit' in request.POST:
+            return super().post(request, *args, **kwargs)
+
+
+class PatientDeleteView(DeleteView):
     model = Patient
     success_url = reverse_lazy('patient:patient_list')
+    context_object_name = 'patient'

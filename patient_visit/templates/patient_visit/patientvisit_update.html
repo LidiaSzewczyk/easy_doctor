@@ -8,6 +8,7 @@
     <div class="col-9 ">
         <div class="row">
             <div class="col-md-11">
+                <p>{{visit.patient}}</p>
                 <form method="post">
                     {% csrf_token %}
                     {% for field in form %}
@@ -24,12 +25,15 @@
                                 anuluj
                             </button>
                         </div>
+
                         <div class="col-md-9"></div>
+
                         <div class="col-md-2">
-                            <button type="submit" name="patient_create_submit" class="btn btn-outline-turquoise">
+                            <button name="patient_visit_update_submit" type="submit" class="btn btn-outline-turquoise">
                                 zapisz
                             </button>
                         </div>
+
                     </div>
                 </form>
 

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
@@ -30,3 +32,12 @@ class PatientVisit(TimeStampedModel):
 
     def get_absolute_url(self):
         return reverse('patient_visit:patientvisit_detail', kwargs={'pk': self.pk})
+
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
+
+        print(10*"*", type(self), "self", self)
+        self.start_date = datetime.now()
+        super(PatientVisit, self).save()
+

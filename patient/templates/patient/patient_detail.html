@@ -12,24 +12,17 @@
             <div class="col-md-11">
                 <h3>{{patient.get_full_name}} </h3>
                 <div class="row">
-                    <div class="col-md-6">ur. {{patient.birth_date}} roku  </div>
-                    <div class="col-md-6">Wiek:  {% for label, val in age.items %}
-                    {{val}} {{label}}
-                    {% empty %}
-                    {% endfor %} </div>
+                    <div class="col-md-6">ur. {{patient.birth_date}} roku</div>
+                    <div class="col-md-6">Wiek: {% for label, val in age.items %}
+                        {{val}} {{label}}
+                        {% empty %}
+                        {% endfor %}
+                    </div>
                 </div>
 
 
-
             </div>
-            <div class="col-md-1 ">
-                <button type="button" class="btn btn-outline-lightpink btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
-                    usuń&nbsp;
-                </button>
-
-
-            </div>
+            <div class="col-md-1 "></div>
         </div>
         <br>
     </div>
@@ -83,7 +76,14 @@
                                 </table>
                                 </p>
                                 <div class="row">
-                                    <div class="col-lg-10"></div>
+                                    <div class="col-lg-2">
+                                        <button type="button" class="btn btn-outline-lightpink btn-sm"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal">
+                                            usuń&nbsp;pacjenta
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-8"></div>
                                     <div class="col-lg-2"><a href="{% url 'patient:patient_update' patient.pk %}">
                                         <button type="button" class="btn btn-outline-lightturquoise btn-sm"> edytuj
                                         </button>
@@ -108,7 +108,7 @@
                     <div id="collapseWizyty" class="accordion-collapse collapse show "
                          aria-labelledby="headingWizyty"
                          data-bs-parent="#accordionExample">
-                         {% include 'patient_visit/visits_accordion.html' %}
+                        {% include 'patient_visit/visits_accordion.html' %}
                     </div>
                 </div>
             </div>

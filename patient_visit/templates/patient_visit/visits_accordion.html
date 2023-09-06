@@ -2,11 +2,11 @@
     <div>
         <div class="row">
             <div class="col-lg-10"></div>
-            <div class="col-lg-2"><a href="">
-                <button type="button" class="btn btn-outline-lightturquoise btn-sm"> nowa
+            <div class="col-lg-2">
+                <button type="button" class="btn btn-outline-lightturquoise btn-sm" onclick="createPatientVisit('{{ patient.pk }}')"> nowa
                     wizyta
                 </button>
-            </a></div>
+           </div>
         </div>
         <p>
         <table class="table table-striped table-hover">
@@ -30,3 +30,10 @@
     </div>
 </div>
 
+<script !src="">
+    // function createPatientVisit(patientPk) {
+    //     clearSession()
+    //     document.getElementById("id_patient").value = patientPk;
+    //     document.getElementsByName("patient").forEach(saveInSessionStorage)
+    // }
+</script>

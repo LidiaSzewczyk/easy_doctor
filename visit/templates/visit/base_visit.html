@@ -255,7 +255,7 @@
     // document.getElementsByName("recommendations").forEach(saveInSessionStorage)
 
 
-    const session_storage_keys = ["diagn",  "badanie", "wywiad", "zalecenia"];
+    const session_storage_keys = ["diagn", "badanie", "wywiad", "zalecenia"];
     session_storage_keys.forEach(session_key => {
         const elementId = session_key;
         const value = sessionStorage.getItem(session_key);
@@ -291,17 +291,25 @@
 
     }
 
+    function createPatientVisit(patientPk) {
+        clearSession()
+        document.getElementById("id_patient").value = patientPk;
+        sessionStorage.setItem('id_patient', patientPk);
+    }
 </script>
 {% endblock scriptend %}
 {% block sidebar %}
-<div class="row">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <p class="turquoise "> NOWA WIZYTA</p>
+</nav>
 
+<div class="row">
     <div class="col-md-11">
         <form method="post">
             {% csrf_token %}
             <div class="buttons_list">
                 <button type="reset" class="btn btn-outline-pink" onclick="clearSession()">Nowy formularz</button>
-                <button type="submit" class="btn btn-outline-turquoise">Zapisz</button>
+                    <button name="patient_visit_submit" type="submit" class="btn btn-outline-turquoise">zapisz</button>
             </div>
             <br>
 
@@ -321,9 +329,10 @@
                 </div>
                 <div class="col-md-9"></div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-outline-turquoise">zapisz</button>
 
-                    </a></div>
+                    <button name="patient_visit_submit" type="submit" class="btn btn-outline-turquoise">zapisz</button>
+
+                  </div>
             </div>
         </form>
     </div>
