@@ -26,7 +26,7 @@ admin.site.index_title = "Welcome to EASY Doctor Researcher Portal"
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
-                  # path('users/', include('users.urls', namespace='users')),
+                  path('home/', include('home.urls', namespace='home')),
                   path('visit/', include('visit.urls', namespace='visit')),
                   path('patient/', include('patient.urls', namespace='patient')),
                   path('patient_visit/', include('patient_visit.urls', namespace='patient_visit')),

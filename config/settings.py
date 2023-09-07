@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
     "debug_toolbar",
 
+    'home.apps.HomeConfig',
     'users.apps.UsersConfig',
     'visit.apps.VisitConfig',
     'patient.apps.PatientConfig',
@@ -154,5 +155,5 @@ TOOLBAR_LANGUAGE = "pl"
 
 LOGIN_REDIRECT_URL = reverse_lazy('patient_visit:patientvisit_list')
 # LOGIN_URL=
-# LOGOUT_REDIRECT_URL
+LOGOUT_REDIRECT_URL=reverse_lazy('home:home')
 # PASSWORD_RESET_TIMEOUT

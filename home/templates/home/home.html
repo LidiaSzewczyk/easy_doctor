@@ -1,0 +1,32 @@
+{% extends 'base_home.html' %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock navbar %}
+
+{% block content %}
+<h2 class="turquoise">Wersja testowa EASY Doctor</h2>
+<div class="card border-info mb-3" style="max-width: 40rem;">
+    <div class="card-header">wersja 0.1</div>
+    <div class="card-body">
+        <h5 class="card-title">O aplikacji</h5>
+        <p class="card-text">* z panelu admina funkcjonalność dodawania tekstów z przypisaniem do danego
+            rozpoznania i określonej części wizyty oraz
+            określeniem sposobu wyświetlania (text, radio, checkbox, ich kombinacje, ustalenie
+            kolejności)
+            * wyświetlanie listy rozpoznań i każdego rozpoznania osobno
+            * w widoku szczegółowym rozpoznania, po wypełnieniu formularza z danej części wizyty (po
+            stronie lewej) możliwość
+            dodania (też usunięcia) go do całościowego formularza z wizyty danego pacjenta (po stronie
+            prawej), zapisywanie w session storage, co
+            umożliwia zachowanie danych przy przechodzeniu na inne endpointy np na endpointy np z innymi
+            rozpoznaniami
+            * dodawanie, edycja, usuwanie pacjentów; wyświetlanie widoku wszystkich pacjentów i widoku
+            szczegółowego pacjenta również z odbytymi wizytami
+            * dodawanie wizyty do danego pacjenta, edycja, usuwanie wizyty, wyświetlanie listy wizyt,
+            widoku szegółowego wizyty
+
+        </p>
+    </div>
+</div>
+{% endblock content %}

@@ -10,57 +10,51 @@
     <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
-
     {% block link %}
     {% endblock link %}
     <script src="{% static 'scripts/bootstrap.min.js' %}"></script>
-
-
     {% block script %}
     {% endblock script %}
 
 </head>
+
 <body>
 
-
 <div class="container-fluid">
-
     <div class="row">
-
-        <div class="col-md-6 ">
+        <div class="col-md-12 ">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                     <div class="col-md-1 "></div>
-
                     <a class="navbar-brand-t " href="{% url 'home:home' %}"> EASY Doctor - wersja testowa</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                             aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon"</span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
-                      {% include 'navbar.html' %}
+                        {% block navbar %}
+                        {% endblock navbar %}
                     </div>
+                </div>
             </nav>
-
-            {% block content %}
-            {% endblock content %}
-
-        </div>
-        <div class="col-md-6">
-
-            {% block sidebar %}
-            {% endblock sidebar %}
-
         </div>
     </div>
-
-
+    <div class="content">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <br><br>
+                {% block content %}
+                {% endblock content %}
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
 </div>
 
 {% block scriptend %}
 
 {% endblock scriptend %}
-
 <script src="{% static 'scripts/index.js' %}"></script>
 </body>
 </html>

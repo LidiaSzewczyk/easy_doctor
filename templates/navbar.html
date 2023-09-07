@@ -1,0 +1,40 @@
+{% if user.is_authenticated %}
+
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'visit:diagnosis_list' %}">Rozpoznania</a>
+    </li>
+    <li class="nav-item">
+
+    </li>
+    <li class="nav-item">
+
+        <a class="nav-link" href="{% url 'patient:patient_list' %}">Pacjenci</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'patient:patient_create' %}">
+            <button type="button" class="btn btn-outline-lightturquoise btn-sm">+</button>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'patient_visit:patientvisit_list' %}"> Wizyty</a>
+    </li>
+
+    <li class="nav-item ">
+        <a class="nav-link" href="{% url 'logout' %}">
+            <button type="button" class="btn btn-outline-lightpink btn-sm">Wyloguj</button>
+        </a>
+    </li>
+</ul>
+<span class="navbar-text">{{user.username}}</span>
+
+{% else %}
+<a href="{% url 'login' %}">
+    <button type="button" class="btn btn-outline-lightturquoise ">
+        Zaloguj
+    </button>
+</a>
+
+
+{% endif %}

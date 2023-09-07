@@ -27,4 +27,5 @@
 * przypisanie tekstów do określonych grup/użytkownikóœ
 * filtrowanie, sortowanie, wyszukiwanie rozpoznań
 * do modelu pacjent dodać pola is_child, płeć
+* dodawanie z admina tekstów na homepage
 * 

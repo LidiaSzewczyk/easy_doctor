@@ -1,32 +1,50 @@
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+{% extends 'base_home.html' %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
-<p>registration login</p>
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
+{% block content %}
+<div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <h2 class="turquoise">Logowanie</h2>
+        <div class="card border-info mb-3 " style="max-width: 40rem;">
+            {% if form.errors %}
+            <div class="card-header">
+                <p>Your username and password didn't match. Please try again.</p>
 
-<input type="submit" value="login">
-<input type="hidden" name="next" value="{{ next }}">
-</form>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="mb-3 row">
+                        <label for="id_username" class="col-sm-3 col-form-label">Login</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="username" maxlength="150" required class="form-control"
+                                   id="id_username"
+                                   autofocus
+                                   autocapitalize="none" autocomplete="username">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="id_password" class="col-sm-3 col-form-label">Hasło</label>
+                        <div class="col-sm-9">
+                            <input type="password" name="password" autocomplete="current-password" required
+                                   class="form-control"
+                                   id="id_password">
+                        </div>
+                    </div>
 
-{# Assumes you set up the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+                    <button type="submit" class="btn btn-outline-lightturquoise ">
+                        Zaloguj
+                    </button>
+
+                </form>
+                <br>
+                <p><a class="turquoise" href="{% url 'password_reset' %}">Nie pamiętasz hasła?</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3"></div>
+</div>
+{% endblock content %}
+
