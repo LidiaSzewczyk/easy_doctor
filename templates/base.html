@@ -56,6 +56,17 @@
                         </ul>
 
                     </div>
+                    {% if  user.is_authenticated  %}
+                    <p>Jesteś zalogowany jako {{user.username}}</p>
+                                        <a href="{% url 'logout' %}">       <button type="button" >
+                     Wyloguj
+                    </button></a>  
+                    {% else %}
+                                                            <a href="{% url 'login' %}">       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon">Zaloguj</span>
+                    {% endif %}
+
                 </div>
             </nav>
 

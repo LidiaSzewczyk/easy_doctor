@@ -14,6 +14,8 @@ import os
 import environ
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
@@ -149,3 +151,8 @@ INTERNAL_IPS = [
 ]
 
 TOOLBAR_LANGUAGE = "pl"
+
+LOGIN_REDIRECT_URL = reverse_lazy('patient_visit:patientvisit_list')
+# LOGIN_URL=
+# LOGOUT_REDIRECT_URL
+# PASSWORD_RESET_TIMEOUT

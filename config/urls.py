@@ -18,15 +18,21 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+# from django.contrib.auth import views as auth_views
+
 admin.site.site_header = "EASY Doctor Admin"
 admin.site.site_title = "EASY Doctor Admin Portal"
 admin.site.index_title = "Welcome to EASY Doctor Researcher Portal"
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
+                  # path('users/', include('users.urls', namespace='users')),
                   path('visit/', include('visit.urls', namespace='visit')),
                   path('patient/', include('patient.urls', namespace='patient')),
                   path('patient_visit/', include('patient_visit.urls', namespace='patient_visit')),
                   path("__debug__/", include("debug_toolbar.urls")),
+                  # path('login/', auth_views.LoginView.as_view(), name='login'),
+                  # path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+                  path("accounts/", include("django.contrib.auth.urls")),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
