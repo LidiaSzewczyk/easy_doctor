@@ -154,6 +154,6 @@ INTERNAL_IPS = [
 TOOLBAR_LANGUAGE = "pl"
 
 LOGIN_REDIRECT_URL = reverse_lazy('patient_visit:patientvisit_list')
-# LOGIN_URL=
+LOGIN_URL=reverse_lazy('login')
 LOGOUT_REDIRECT_URL=reverse_lazy('home:home')
 # PASSWORD_RESET_TIMEOUT

@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -8,13 +9,13 @@ from .forms import PatientVisitForm, PatientVisitUpdateForm
 from .models import PatientVisit
 
 
-class PatientVisitCreateView(CreateView):
+class PatientVisitCreateView(LoginRequiredMixin, CreateView):
     template_name = 'visit/base_visit.html'
     form_class = PatientVisitForm
     model = PatientVisit
 
 
-class PatientVisitListView(ListView):
+class PatientVisitListView(LoginRequiredMixin, ListView):
     queryset = PatientVisit.objects.all()
     context_object_name = 'patient_visits'
     template_name = 'patient_visit/patient_visit_list.html'
@@ -30,7 +31,7 @@ class PatientVisitListView(ListView):
         return context
 
 
-class PatientVisitDetailView(DetailView):
+class PatientVisitDetailView(LoginRequiredMixin, DetailView):
     model = PatientVisit
     template_name = 'patient_visit/patientvisit_detail.html'
     context_object_name = 'visit'
@@ -51,7 +52,7 @@ class PatientVisitDetailView(DetailView):
         return PatientVisitCreateView.as_view()(request)
 
 
-class PatientVisitUpdateView(UpdateView):
+class PatientVisitUpdateView(LoginRequiredMixin, UpdateView):
     model = PatientVisit
     template_name = 'patient_visit/patientvisit_update.html'
     context_object_name = 'visit'
@@ -76,7 +77,7 @@ class PatientVisitUpdateView(UpdateView):
             return super().post(request, *args, **kwargs)
 
 
-class PatientVisitDeleteView(DeleteView):
+class PatientVisitDeleteView(LoginRequiredMixin, DeleteView):
     model = PatientVisit
     context_object_name = 'patient_visit'
 

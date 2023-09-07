@@ -37,10 +37,11 @@
                     <button type="submit" class="btn btn-outline-lightturquoise ">
                         Zaloguj
                     </button>
+                    <input type="hidden" name="next" value="{{ next }}">
 
                 </form>
                 <br>
-                <p><a class="turquoise" href="{% url 'password_reset' %}">Nie pamiętasz hasła?</a></p>
+
             </div>
         </div>
     </div>

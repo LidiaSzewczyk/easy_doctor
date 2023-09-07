@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import connection
 from django.views.generic import ListView, DetailView
 
@@ -6,7 +7,7 @@ from patient_visit.views import PatientVisitCreateView
 from .models import Diagnosis
 
 
-class DiagnosisListView(ListView):
+class DiagnosisListView(LoginRequiredMixin, ListView):
     queryset = Diagnosis.objects.all()
     context_object_name = 'diagnosis'
     template_name = 'visit/diagnosis_list.html'
@@ -21,7 +22,7 @@ class DiagnosisListView(ListView):
         return context
 
 
-class DiagnosisDetailView(DetailView):
+class DiagnosisDetailView(LoginRequiredMixin, DetailView):
     model = Diagnosis
     template_name = 'visit/diagnosis_detail.html'
     context_object_name = 'diagnosis'

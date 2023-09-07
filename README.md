@@ -14,7 +14,7 @@
   umożliwia zachowanie danych przy przechodzeniu na inne endpointy np na endpointy np z innymi rozpoznaniami
 * dodawanie, edycja, usuwanie pacjentów; wyświetlanie widoku wszystkich pacjentów i widoku szczegółowego pacjenta również z odbytymi wizytami
 * dodawanie wizyty do danego pacjenta, edycja, usuwanie wizyty, wyświetlanie listy wizyt, widoku szegółowego wizyty
-
+* logowanie/wylogowywanie
 
 ### TO DO
 
@@ -23,9 +23,10 @@
 * pracownik- dostęp tylko do pacjentów których miał na wizycie
 * wysyłanie mailem zaleceń /całej wizyty
 * podpis elektronczny
-* logowanie, rejestracja
+* rejestracja
 * przypisanie tekstów do określonych grup/użytkownikóœ
 * filtrowanie, sortowanie, wyszukiwanie rozpoznań
 * do modelu pacjent dodać pola is_child, płeć
 * dodawanie z admina tekstów na homepage
+*  dodać do login.html <p><a class="turquoise" href="{% url 'password_reset' %}">Nie pamiętasz hasła?</a></p> i dorobić templatkę
 * 
