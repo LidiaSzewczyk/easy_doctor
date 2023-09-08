@@ -30,3 +30,7 @@
 * dodawanie z admina tekstów na homepage
 *  dodać do login.html <p><a class="turquoise" href="{% url 'password_reset' %}">Nie pamiętasz hasła?</a></p> i dorobić templatkę
 * 
+
+
+### Teksty
+* Używamy plików cookies, aby ułatwić Ci korzystanie z naszego serwisu oraz do celów statystycznych. Jeśli nie blokujesz tych plików, to zgadzasz się na ich użycie oraz zapisanie w pamięci urządzenia. Pamiętaj, że możesz samodzielnie zarządzać cookies, zmieniając ustawienia przeglądarki. Więcej informacji w naszej polityce prywatności.
