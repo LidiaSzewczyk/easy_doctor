@@ -82,13 +82,14 @@ class Text(TimeStampedModel):
 
 class FormType(models.Model):
     name = models.CharField(max_length=150, help_text='nazwa', verbose_name='nazwa')
+    info = models.CharField(max_length=150, help_text='info', verbose_name='info', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Typ formularza'
         verbose_name_plural = 'Typy formularza'
 
     def __str__(self):
-        return self.name
+        return self.info or self.name
 
 
 class Choice(models.Model):
