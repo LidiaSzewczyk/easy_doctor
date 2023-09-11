@@ -1,36 +1,33 @@
 # EASY Doctor
+A simple, doctor-friendly application for creating patient documentation in the clinic.
 
-### Przed uruchomieniem
+### Before starting
 
-* stworzyć plik envs/.env na bazie .env-default i uzupełnić
+* create an envs/.env file based on .env-default and complete it
 
-### Możliwości
+### Working functionalities
+* login/logout
+* Displaying the view of all patients. Adding, updating, deleting a patient. 
+Detailed view of the patient with a list of completed visits.
+* Displaying a list of visits. Adding, updating, deleting a visit. 
+Detailed view of the visit with a list of completed visits.
+* Displaying a list of possible diagnoses. In the detailed diagnosis view, adding a completed form from part of the visit (on the left)
+to the patient visit form (on the right), storing data in session storage when switching to other endpoints
+* customized admin panel
 
-* z panelu admina funkcjonalność dodawania tekstów z przypisaniem do danego rozpoznania i określonej części wizyty oraz
-  określeniem sposobu wyświetlania  (text, radio, checkbox, ich kombinacje, ustalenie kolejności)
-* wyświetlanie listy rozpoznań i każdego rozpoznania osobno
-* w widoku szczegółowym rozpoznania, po wypełnieniu formularza z danej części wizyty (po stronie lewej) możliwość
-  dodania (też usunięcia) go do całościowego formularza z wizyty danego pacjenta (po stronie prawej), zapisywanie w session storage, co
-  umożliwia zachowanie danych przy przechodzeniu na inne endpointy np na endpointy np z innymi rozpoznaniami
-* dodawanie, edycja, usuwanie pacjentów; wyświetlanie widoku wszystkich pacjentów i widoku szczegółowego pacjenta również z odbytymi wizytami
-* dodawanie wizyty do danego pacjenta, edycja, usuwanie wizyty, wyświetlanie listy wizyt, widoku szegółowego wizyty
-* logowanie/wylogowywanie
+### Planned functionalities
+* generating pdf from the visit
+* searching, filtering, sorting patients
+* searching, filtering, sorting visits
+* searching, filtering, sorting diagnoses
+* limiting users' access to only their patients
+* adding validation to forms
+* sending recommendations by e-mail
+* user registration
+* adding a fields: specifying the patient's gender and is_child to the model
+* assigning diagnoses and texts to specific groups/users
+* adding texts to the homepage from the admin panel
+* change password, pasword reset
+* coockies
+* adding logs
 
-### TO DO
-
-* generowanie pdf z wizyty
-* pacjent  wyszukiwanie, poprawić formularz- daty, validacja, 
-* pracownik- dostęp tylko do pacjentów których miał na wizycie
-* wysyłanie mailem zaleceń /całej wizyty
-* podpis elektronczny
-* rejestracja
-* przypisanie tekstów do określonych grup/użytkownikóœ
-* filtrowanie, sortowanie, wyszukiwanie rozpoznań
-* do modelu pacjent dodać pola is_child, płeć
-* dodawanie z admina tekstów na homepage
-*  dodać do login.html <p><a class="turquoise" href="{% url 'password_reset' %}">Nie pamiętasz hasła?</a></p> i dorobić templatkę
-* 
-
-
-### Teksty
-* Używamy plików cookies, aby ułatwić Ci korzystanie z naszego serwisu oraz do celów statystycznych. Jeśli nie blokujesz tych plików, to zgadzasz się na ich użycie oraz zapisanie w pamięci urządzenia. Pamiętaj, że możesz samodzielnie zarządzać cookies, zmieniając ustawienia przeglądarki. Więcej informacji w naszej polityce prywatności.
