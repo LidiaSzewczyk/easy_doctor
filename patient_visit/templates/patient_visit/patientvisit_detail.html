@@ -10,7 +10,8 @@
     <div class="col-9 ">
         <div class="row">
             <div class="col-md-11">
-                <a class="turquoise" href="{% url 'patient:patient_detail' visit.patient.pk %}"><h3>{{visit.patient.get_full_name}} </h3></a>
+                <a class="turquoise" href="{% url 'patient:patient_detail' visit.patient.pk %}"><h3>
+                    {{visit.patient.get_full_name}} </h3></a>
                 <div class="row">
                     <div class="col-md-6">ur. {{visit.patient.birth_date}} roku</div>
                     <div class="col-md-6">Wiek: {% for label, val in age_now.items %}
@@ -90,12 +91,18 @@
                                 </table>
                                 </p>
                                 <div class="row">
-                                       <div class="col-lg-2">
-                                        <button type="button" class="btn btn-outline-lightpink btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#patientVisitDeleteModal"> usuń wizytę
+                                    <div class="col-lg-2">
+                                        <button type="button" class="btn btn-outline-lightpink btn-sm"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#patientVisitDeleteModal"> usuń wizytę
                                         </button>
                                     </div>
-                                    <div class="col-lg-8"></div>
+                                    <div class="col-lg-6"></div>
+                                    <div class="col-lg-2"><a target="_blank"
+                                            href="{% url 'patient_visit:patientvisit_pdf' visit.pk %}">
+                                        <button type="button" class="btn btn-outline-lightturquoise btn-sm"> pdf wizyta
+                                        </button>
+                                    </a></div>
                                     <div class="col-lg-2"><a
                                             href="{% url 'patient_visit:patientvisit_update' visit.pk %}">
                                         <button type="button" class="btn btn-outline-lightturquoise btn-sm"> edytuj
@@ -164,7 +171,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="patientVisitDeleteModalLabel">
-                     {{visit.patient.get_full_name}}
+                    {{visit.patient.get_full_name}}
                     <br>Wizyta {{ visit.start_date }}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
